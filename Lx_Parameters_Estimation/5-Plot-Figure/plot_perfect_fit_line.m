@@ -1,11 +1,13 @@
-subplot(1,3,1);
-plotPerfectFit(training_dataset.Lx_OBS, result_trained_model.random_forest.predictions, 'Random forest');
+addpath(genpath("..\0-Dataset"));
+addpath(genpath("..\3_Trained-Models"));
+load("..\0-Dataset\LX_OBS_WITH_FEATURES.mat");
+load("..\3-Trained-Models\Trained-model-k-4.mat");
 
-subplot(1,3,2);
-plotPerfectFit(training_dataset.Lx_OBS, result_trained_model.lsboost.predictions, 'Lsboost');
+subplot(1,2,1);
+plotPerfectFit(lx_dataset.Lx_OBS, result_trained_model.random_forest.predictions, 'Random forest');
 
-subplot(1,3,3);
-plotPerfectFit(training_dataset.Lx_OBS, result_trained_model.neural_network.predictions, 'Neural network');
+subplot(1,2,2);
+plotPerfectFit(lx_dataset.Lx_OBS, result_trained_model.lsboost.predictions, 'Lsboost');
 
 function [] = plotPerfectFit(obs, pred, modelName)
     plot(obs,pred, '.','MarkerSize',18, ...

@@ -22,7 +22,7 @@ targetFeatureName = 'Lx_OBS';
 
 %% Set maxObjectiveEvaluations as maximum number of objective functions to
 %  be evaluated in the optimization process
-max_objective_evaluations = 3;
+max_objective_evaluations = 30;
 
 %% Removed useless features
 training_dataset = lx_dataset;
@@ -73,8 +73,7 @@ result_trained_model.lsboost.metrics.rse = computeRSE(training_dataset.Lx_OBS, r
 result_trained_model.lsboost.metrics.rrse = sqrt(result_trained_model.lsboost.metrics.rse);
 result_trained_model.lsboost.metrics.rae = computeRAE(training_dataset.Lx_OBS, result_trained_model.lsboost.predictions);
 result_trained_model.lsboost.metrics.r2 = computeR2(training_dataset.Lx_OBS, result_trained_model.lsboost.predictions);
-corr_coeff_matrix = corrcoef(training_dataset.Lx_OBS, result_trained_model.lsboost.predictions);
-result_trained_model.lsboost.metrics.corr_coeff = corr_coeff_matrix(1,2);
+result_trained_model.lsboost.metrics.corr_coeff = computeCorrCoef(training_dataset.Lx_OBS, result_trained_model.lsboost.predictions);
 
 results("lsboost","RMSE") = {result_trained_model.lsboost.metrics.rmse};
 results("lsboost","MAE") = {result_trained_model.lsboost.metrics.mae};
@@ -96,8 +95,7 @@ result_trained_model.neural_network.metrics.rse = computeRSE(training_dataset.Lx
 result_trained_model.neural_network.metrics.rrse = sqrt(result_trained_model.neural_network.metrics.rse);
 result_trained_model.neural_network.metrics.rae = computeRAE(training_dataset.Lx_OBS, result_trained_model.neural_network.predictions);
 result_trained_model.neural_network.metrics.r2 = computeR2(training_dataset.Lx_OBS, result_trained_model.neural_network.predictions);
-corr_coeff_matrix = corrcoef(training_dataset.Lx_OBS, result_trained_model.neural_network.predictions);
-result_trained_model.neural_network.metrics.corr_coeff = corr_coeff_matrix(1,2);
+result_trained_model.neural_network.metrics.corr_coeff = computeCorrCoef(training_dataset.Lx_OBS, result_trained_model.neural_network.predictions);
 
 results("neural_network","RMSE") = {result_trained_model.neural_network.metrics.rmse};
 results("neural_network","MAE") = {result_trained_model.neural_network.metrics.mae};
@@ -134,4 +132,9 @@ function [r2] = computeR2 (obs, pred)
     sse = sum((obs-pred).^2);
     sst = sum((obs - mean(obs)).^2);
     r2 = 1 - (sse/sst);
+end
+
+function [r] = computeCorrCoef(obs, pred)
+    corr_coeff_matrix = corrcoef(obs, pred);
+    r = corr_coeff_matrix(1,2);
 end
