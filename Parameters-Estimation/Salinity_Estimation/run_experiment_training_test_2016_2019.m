@@ -6,13 +6,13 @@
 %  We use 70% of examples to train and validate our model, and 30% examples to test it. 
 
 %% Add to path subdirectory
-addpath(genpath('0-Dataset'));
+addpath(genpath('0-Dataset\training_test_2016_2019'));
 addpath(genpath('..\..\Machine-Learning-Tools\1-Utility'));
 addpath(genpath('..\..\Machine-Learning-Tools\2-Machine-Learning-Function'));
-addpath(genpath('1_Trained-Models'));
+addpath(genpath('1_Trained-Models\training_test_2016_2019'));
 
 %% Set import dataset settings
-filepath = "0-Dataset\SALINITY_OBS_WITH_FEATURES.xlsx";
+filepath = "0-Dataset\training_test_2016_2019\SALINITY_OBS_WITH_FEATURES.xlsx";
 nVars = 7;
 dataRange = "A2:G1462";
 sheetName = "Salinity_obs";
@@ -34,11 +34,11 @@ salinity_dataset = remove_missing_data_features(salinity_dataset);
 %% Split original dataset in training and test set
 [salinity_training_dataset, salinity_test_dataset] = create_training_test_dataset(salinity_dataset, 0.3);
 
-save('0-Dataset/SALINITY_OBS_WITH_FEATURES.mat', ...
+save('0-Dataset/training_test_2016_2019/SALINITY_OBS_WITH_FEATURES.mat', ...
     'salinity_dataset');
-save('0-Dataset/Salinity-Training-Dataset.mat', ...
+save('0-Dataset/training_test_2016_2019/Salinity-Training-Dataset.mat', ...
     'salinity_training_dataset');
-save('0-Dataset/Salinity-Test-Dataset.mat', ...
+save('0-Dataset/training_test_2016_2019/Salinity-Test-Dataset.mat', ...
     'salinity_test_dataset');
 
 %% Create table for k-fold cross validation results
@@ -195,13 +195,17 @@ results_test("neural_network","Corr Coeff") = {result_trained_model.neural_netwo
 clc;
 close all;
 
-writetable(results_training, '1-Trained-Models/Results-salinity-calibration-model-k-10.xlsx', 'WriteRowNames',true);
-writetable(results_test, '1-Trained-Models/Results-salinity-test-model-k-10.xlsx', 'WriteRowNames',true);
-save("1-Trained-Models\Salinity-Trained-Tested-model-k-10.mat","result_trained_model");
+writetable(results_training, '1-Trained-Models/training_test_2016_2019/Results-salinity-calibration-model-k-10.xlsx', 'WriteRowNames',true);
+writetable(results_test, '1-Trained-Models/training_test_2016_2019/Results-salinity-test-model-k-10.xlsx', 'WriteRowNames',true);
+save("1-Trained-Models\training_test_2016_2019\Salinity-Trained-Tested-model-k-10.mat","result_trained_model");
 
 
 function [rmse] = computeRMSE(obs, pred)
     rmse = sqrt(sum((obs - pred).^2)/height(obs));
+end
+
+function [nrmse] = computeNRMSE(obs, pred)
+    nrmse = computeRMSE(obs, pred) / mean(obs);
 end
 
 function [mae] = computeMAE(obs, pred)
