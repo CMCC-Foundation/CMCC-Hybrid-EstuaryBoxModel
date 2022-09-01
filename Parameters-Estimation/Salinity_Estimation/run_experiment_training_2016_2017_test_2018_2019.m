@@ -69,7 +69,7 @@ targetFeatureName = 'Salinity_Obs';
 
 %% Set maxObjectiveEvaluations as maximum number of objective functions to
 %  be evaluated in the optimization process
-max_objective_evaluations = 2;
+max_objective_evaluations = 60;
 
 %% Set k to be use in k-fold cross validation
 k = 10;
