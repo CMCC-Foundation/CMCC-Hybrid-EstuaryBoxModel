@@ -1,8 +1,8 @@
-addpath(genpath('..\0-Dataset'));
-addpath(genpath('..\1_Trained-Models'));
-load("..\0-Dataset\Salinity-Training-Dataset.mat");
-load("..\0-Dataset\Salinity-Test-Dataset.mat");
-load("..\1-Trained-Models\Salinity-Trained-Tested-model-k-10.mat");
+addpath(genpath('..\0-Dataset\training_test_2016_2019'));
+addpath(genpath('..\1_Trained-Models\training_test_2016_2019'));
+load("..\0-Dataset\training_test_2016_2019\Salinity-Training-Dataset.mat");
+load("..\0-Dataset\training_test_2016_2019\Salinity-Test-Dataset.mat");
+load("..\1-Trained-Models\training_test_2016_2019\Salinity-Trained-Tested-model-k-10.mat");
 
 algorithm_names = {'random forest', 'lsboost', 'neural network'};
 response = 'Salinity_Obs';
@@ -14,24 +14,24 @@ f = figure;
 f.Position = [0 0 1920 1000];
 
 subplot(2,3,1);
-plotPerfectFit(training_response_obs, result_trained_model.random_forest.predictions, algorithm_names(1));
+plotPerfectFit(training_response_obs, result_trained_model.random_forest.validation_results.validation_predictions, algorithm_names(1));
 
 subplot(2,3,2);
-plotPerfectFit(training_response_obs, result_trained_model.lsboost.predictions, algorithm_names(2));
+plotPerfectFit(training_response_obs, result_trained_model.lsboost.validation_results.validation_predictions, algorithm_names(2));
 
 subplot(2,3,3);
-plotPerfectFit(training_response_obs, result_trained_model.neural_network.predictions, algorithm_names(3));
+plotPerfectFit(training_response_obs, result_trained_model.neural_network.validation_results.validation_predictions, algorithm_names(3));
 
 subplot(2,3,4);
-resumeTable = createResumeTable(training_response_obs, result_trained_model.random_forest.predictions, response);
+resumeTable = createResumeTable(training_response_obs, result_trained_model.random_forest.validation_results.validation_predictions, response);
 plotResidualBar(resumeTable, algorithm_names(1), response);
 
 subplot(2,3,5);
-resumeTable = createResumeTable(training_response_obs, result_trained_model.lsboost.predictions, response);
+resumeTable = createResumeTable(training_response_obs, result_trained_model.lsboost.validation_results.validation_predictions, response);
 plotResidualBar(resumeTable, algorithm_names(2), response);
 
 subplot(2,3,6);
-resumeTable = createResumeTable(training_response_obs, result_trained_model.neural_network.predictions, response);
+resumeTable = createResumeTable(training_response_obs, result_trained_model.neural_network.validation_results.validation_predictions, response);
 plotResidualBar(resumeTable, algorithm_names(3), response);
 
 sgtitle('Training results');
@@ -43,24 +43,24 @@ f = figure;
 f.Position = [0 0 1920 1000];
 
 subplot(2,3,1);
-plotPerfectFit(test_response_obs, result_trained_model.random_forest.test.predictions, algorithm_names(1));
+plotPerfectFit(test_response_obs, result_trained_model.random_forest.test_results.test_predictions, algorithm_names(1));
 
 subplot(2,3,2);
-plotPerfectFit(test_response_obs, result_trained_model.lsboost.test.predictions, algorithm_names(2));
+plotPerfectFit(test_response_obs, result_trained_model.lsboost.test_results.test_predictions, algorithm_names(2));
 
 subplot(2,3,3);
-plotPerfectFit(test_response_obs, result_trained_model.neural_network.test.predictions, algorithm_names(3));
+plotPerfectFit(test_response_obs, result_trained_model.neural_network.test_results.test_predictions, algorithm_names(3));
 
 subplot(2,3,4);
-resumeTable = createResumeTable(test_response_obs, result_trained_model.random_forest.test.predictions, response);
+resumeTable = createResumeTable(test_response_obs, result_trained_model.random_forest.test_results.test_predictions, response);
 plotResidualBar(resumeTable, algorithm_names(1), response);
 
 subplot(2,3,5);
-resumeTable = createResumeTable(test_response_obs, result_trained_model.lsboost.test.predictions, response);
+resumeTable = createResumeTable(test_response_obs, result_trained_model.lsboost.test_results.test_predictions, response);
 plotResidualBar(resumeTable, algorithm_names(2), response);
 
 subplot(2,3,6);
-resumeTable = createResumeTable(test_response_obs, result_trained_model.neural_network.test.predictions, response);
+resumeTable = createResumeTable(test_response_obs, result_trained_model.neural_network.test_results.test_predictions, response);
 plotResidualBar(resumeTable, algorithm_names(3), response);
 
 sgtitle('Test results');
@@ -128,24 +128,6 @@ set(gca,'FontSize',12);
 grid on;
 box on;
 hold off;
-end
-
-function [] = plotRealObs(obs)
-if (istable(obs))
-    obs = table2array(obs);
-end
-
-obs = sort(obs);
-plot(obs, '.','LineWidth',0.5, 'Color',[0.00,0.45,0.74], ...
-    'MarkerSize',18, 'MarkerEdgeColor','auto');
-
-xlim([0 max(numel(obs))+5]);
-ylim([0 50]);
-legend('Observations','Location','northwest');
-xlabel('Record number');
-ylabel('Observation');
-title('Observations distribution');
-grid on;
 end
 
 function [resumeTable] = createResumeTable(obs, pred, response)
