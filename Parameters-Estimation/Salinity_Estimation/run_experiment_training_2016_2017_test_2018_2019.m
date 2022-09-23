@@ -32,13 +32,14 @@ salinity_test_dataset_2018 = salinity_dataset(salinity_dataset.Year == 2018, :);
 salinity_test_dataset_2019 = salinity_dataset(salinity_dataset.Year == 2019, :);
 salinity_test_dataset_2018_2019 = salinity_dataset(salinity_dataset.Year == 2018 | salinity_dataset.Year == 2019, :);
 
+%{
 save('0-Dataset/training_2016_2017_test_2018_2019_comparing_old_model/SALINITY_OLD_MODEL_PREDICTIONS.mat', ...
     'salinity_dataset');
 save('0-Dataset/training_2016_2017_test_2018_2019_comparing_old_model/Salinity-Training-Dataset_2016_2017.mat', ...
     'salinity_training_dataset');
 save('0-Dataset/training_2016_2017_test_2018_2019_comparing_old_model/Salinity-Test-Dataset_2018_2019.mat', ...
     'salinity_test_dataset_2018_2019');
-
+%}
 %% Create table for k-fold cross validation results
 algorithm_names = {'random_forest', 'lsboost', 'neural_network' };
 
@@ -184,8 +185,10 @@ clc;
 close all;
 
 %% Save results
+%{
 writetable(results_training, '1-Trained-Models/training_2016_2017_test_2018_2019_comparing_old_model/Results-salinity-calibration-model-k-10-old-configuration.xlsx', 'WriteRowNames',true);
 writetable(results_test_2018_dataset, '1-Trained-Models/training_2016_2017_test_2018_2019_comparing_old_model/Results-salinity-test-2018-model-k-10-old-configuration.xlsx', 'WriteRowNames',true);
 writetable(results_test_2019_dataset, '1-Trained-Models/training_2016_2017_test_2018_2019_comparing_old_model/Results-salinity-test-2019-model-k-10-old-configuration.xlsx', 'WriteRowNames',true);
 writetable(results_test_2018_2019_dataset, '1-Trained-Models/training_2016_2017_test_2018_2019_comparing_old_model/Results-salinity-test-2018-2019-model-k-10-old-configuration.xlsx', 'WriteRowNames',true);
 save("1-Trained-Models\training_2016_2017_test_2018_2019_comparing_old_model\Salinity-Trained-Tested-model-k-10-old-configuration.mat","result_trained_model");
+%}

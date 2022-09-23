@@ -10,7 +10,7 @@
 addpath(genpath('0-Dataset'));
 addpath(genpath('..\..\Machine-Learning-Tools\1-Utility'));
 addpath(genpath('..\..\Machine-Learning-Tools\2-Machine-Learning-Function'));
-addpath(genpath('1_Trained-Models'));
+addpath(genpath('1-Trained-Models'));
 
 %% Set import dataset settings
 filepath = "0-Dataset\LX_OBS_WITH_FEATURES.xlsx";
@@ -29,17 +29,15 @@ targetFeatureName = 'Lx_OBS';
 
 %% Set maxObjectiveEvaluations as maximum number of objective functions to
 %  be evaluated in the optimization process
-max_objective_evaluations = 30;
+max_objective_evaluations = 60;
 
 %% Removed useless features
 training_dataset = lx_dataset;
-training_dataset = removevars(training_dataset, {'DATE','Dataset_Type'});
 
 %% Create table for k-fold cross validation results
-algorithm_names = {'regression_trees', 'support_vector_machines', 'gam',...
-    'random_forest', 'lsboost', 'neural_network' };
+algorithm_names = {'random_forest', 'lsboost' };
 
-results = table('Size', [6 3], ...
+results = table('Size', [2 3], ...
     'VariableTypes', {'double','double','double'}, ...
     'VariableNames', {'k_3_RMSE', 'k_4_RMSE','k_5_RMSE'},...
     'RowNames', algorithm_names);
@@ -50,63 +48,25 @@ for k = 3:5
     fprintf("\n===================================================================\n");
     fprintf(strcat("Training model using ", algorithm_names(1), " with k=", string(k), "\n"));
     fprintf("===================================================================\n");
-    [results_trees] = regression_tree_function(training_dataset,targetFeatureName,max_objective_evaluations, k);
-    results(1,i) = {results_trees.rmse};
+    [results_rf] = random_forest_function(removevars(training_dataset, {'DATE','Dataset_Type'}),targetFeatureName,max_objective_evaluations, k);
+    results(1,i) = {computeRMSE(training_dataset(:,"Lx_OBS"),results_rf.validation_results.validation_predictions)};
 
     fprintf("\n===================================================================\n");
     fprintf(strcat("Training model using ", algorithm_names(2), " with k=", string(k), "\n"));
     fprintf("===================================================================\n");
-    [results_svm] = regression_svm_function(training_dataset,targetFeatureName,max_objective_evaluations, k);
-    results(2,i) = {results_svm.rmse};
-
-    fprintf("\n===================================================================\n");
-    fprintf(strcat("Training model using ", algorithm_names(3), " with k=", string(k), "\n"));
-    fprintf("===================================================================\n");
-    [results_gam] = gam_function(training_dataset,targetFeatureName,max_objective_evaluations, k);
-    results(3,i) = {results_gam.rmse};
-
-    fprintf("\n===================================================================\n");
-    fprintf(strcat("Training model using ", algorithm_names(4), " with k=", string(k), "\n"));
-    fprintf("===================================================================\n");
-    [results_rf] = random_forest_function(training_dataset,targetFeatureName,max_objective_evaluations, k);
-    results(4,i) = {results_rf.rmse};
-
-    fprintf("\n===================================================================\n");
-    fprintf(strcat("Training model using ", algorithm_names(5), " with k=", string(k), "\n"));
-    fprintf("===================================================================\n");
-    [results_lsb] = lsboost_function(training_dataset,targetFeatureName,max_objective_evaluations, k);
-    results(5,i) = {results_lsb.rmse};
-
-    fprintf("\n===================================================================\n");
-    fprintf(strcat("Training model using ", algorithm_names(6), " with k=", string(k), "\n"));
-    fprintf("===================================================================\n");
-    [results_nn] = neural_network_function(training_dataset,targetFeatureName,1,3,10,50, max_objective_evaluations, k);
-    results(6,i) = {results_nn.rmse};
-
+    [results_lsb] = lsboost_function(removevars(training_dataset, {'DATE','Dataset_Type'}),targetFeatureName,max_objective_evaluations, k);
+    results(2,i) = {computeRMSE(training_dataset(:,"Lx_OBS"),results_lsb.validation_results.validation_predictions)};
 
     if k == 3
-        compact_struct_trained_model.k_3.regression_trees = results_trees;
-        compact_struct_trained_model.k_3.svm = results_svm;
-        compact_struct_trained_model.k_3.gam = results_gam;
         compact_struct_trained_model.k_3.random_forest = results_rf;
         compact_struct_trained_model.k_3.lsboost = results_lsb;
-        compact_struct_trained_model.k_3.neural_network = results_nn;
     elseif k == 4
-        compact_struct_trained_model.k_4.regression_trees = results_trees;
-        compact_struct_trained_model.k_4.svm = results_svm;
-        compact_struct_trained_model.k_4.gam = results_gam;
         compact_struct_trained_model.k_4.random_forest = results_rf;
         compact_struct_trained_model.k_4.lsboost = results_lsb;
-        compact_struct_trained_model.k_4.neural_network = results_nn;
     elseif k == 5
-        compact_struct_trained_model.k_5.regression_trees = results_trees;
-        compact_struct_trained_model.k_5.svm = results_svm;
-        compact_struct_trained_model.k_5.gam = results_gam;
         compact_struct_trained_model.k_5.random_forest = results_rf;
         compact_struct_trained_model.k_5.lsboost = results_lsb;
-        compact_struct_trained_model.k_5.neural_network = results_nn;
     end
-
    
     i = i + 1;
 
@@ -115,3 +75,15 @@ for k = 3:5
 end
 
 writetable(results, '1-Trained-Models/Results-tuning-with-different-k.xlsx', 'WriteRowNames',true);
+
+
+function [rmse] = computeRMSE(obs, pred)
+    if istable(obs)
+        obs = table2array(obs);
+    end
+
+    if istable(pred)
+        pred = table2array(pred);
+    end
+    rmse = sqrt(sum((obs - pred).^2)/numel(obs));
+end
