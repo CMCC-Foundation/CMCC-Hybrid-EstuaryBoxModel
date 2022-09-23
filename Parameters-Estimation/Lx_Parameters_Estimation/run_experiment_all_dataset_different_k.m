@@ -74,7 +74,7 @@ for k = 3:5
     close all;
 end
 
-writetable(results, '1-Trained-Models/Results-tuning-with-different-k.xlsx', 'WriteRowNames',true);
+writetable(results, '1-Trained-Models/Tuning-Different-k/Results-tuning-with-different-k.xlsx', 'WriteRowNames',true);
 
 
 function [rmse] = computeRMSE(obs, pred)
