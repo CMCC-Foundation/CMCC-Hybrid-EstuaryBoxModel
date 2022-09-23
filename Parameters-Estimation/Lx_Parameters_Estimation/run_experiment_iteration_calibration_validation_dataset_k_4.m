@@ -2,7 +2,7 @@
 addpath(genpath('0-Dataset'));
 addpath(genpath('..\..\Machine-Learning-Tools\1-Utility'));
 addpath(genpath('..\..\Machine-Learning-Tools\2-Machine-Learning-Function'));
-addpath(genpath('1_Trained-Models'));
+addpath(genpath('1-Trained-Models'));
 
 %% Set import dataset settings
 filepath = "0-Dataset\LX_OBS_WITH_FEATURES.xlsx";
@@ -13,9 +13,6 @@ varNames = ["DATE","Q_l", "Q_r", "S_l", "Q_tide", "Lx_OBS", "Dataset_Type"];
 varTypes = ["datetime", "double", "double", "double", "double","double","categorical"];
 
 [lx_dataset] = import_dataset(filepath, nVars, dataRange, sheetName, varNames, varTypes);
-
-%% Removing useless features 
-lx_dataset = removevars(lx_dataset, {'DATE','Dataset_Type'});
 
 %% Define number of iteration
 niteration = 5;
@@ -51,15 +48,15 @@ targetFeatureName = 'Lx_OBS';
 
 %% Set maxObjectiveEvaluations as maximum number of objective functions to
 %  be evaluated in the optimization process
-max_objective_evaluations = 30;
+max_objective_evaluations = 60;
 
-percetageSplitData = 0.80 ;
+percetageSplitData = 0.20 ;
 k = 4;
 
 %% Run experiment
 for i = 1: niteration
     
-    [training_dataset, testing_dataset] = generateTrainingTest(lx_dataset, percetageSplitData);
+    [training_dataset, testing_dataset] = create_training_test_dataset(lx_dataset, percetageSplitData);
 
     %% Training random forest model
     fprintf("\n===================================================================\n");
@@ -68,24 +65,12 @@ for i = 1: niteration
     fprintf(strcat("Training model using random forest with k=", string(k), "\n"));
     fprintf("===================================================================\n");
     
-    model_rf = random_forest_function(training_dataset,targetFeatureName,max_objective_evaluations, k);
-    results_training_rf(i,"RMSE") = {model_rf.metrics.rmse};
-    results_training_rf(i,"MAE") = {computeMAE(training_dataset.Lx_OBS, model_rf.predictions)};
-    results_training_rf(i,"RSE") = {computeRSE(training_dataset.Lx_OBS, model_rf.predictions)};
-    results_training_rf(i,"RRSE") = {sqrt(table2array(results_training_rf(i,"RSE")))};
-    results_training_rf(i,"RAE") = {computeRAE(training_dataset.Lx_OBS, model_rf.predictions)};
-    results_training_rf(i,"R2") = {computeR2(training_dataset.Lx_OBS, model_rf.predictions)};
-    results_training_rf(i,"Corr Coeff") = {computeCorrCoef( training_dataset.Lx_OBS, model_rf.predictions)};
-    
+    model_rf = random_forest_function(removevars(training_dataset, {'DATE','Dataset_Type'}),targetFeatureName,max_objective_evaluations, k);
+    results_training_rf = compute_metrics(training_dataset(:,targetFeatureName),model_rf.validation_results.validation_predictions, iterationLabel(i), results_training_rf);
+
     %% Testing random forest
-    predictions_rf = model_rf.model.predictFcn(testing_dataset);
-    results_test_rf(i,"RMSE") = {computeRMSE(testing_dataset.Lx_OBS, predictions_rf)};
-    results_test_rf(i,"MAE") = {computeMAE(testing_dataset.Lx_OBS, predictions_rf)};
-    results_test_rf(i,"RSE") = {computeRSE(testing_dataset.Lx_OBS, predictions_rf)};
-    results_test_rf(i,"RRSE") = {sqrt(table2array(results_test_rf(i,"RSE")))};
-    results_test_rf(i,"RAE") = {computeRAE(testing_dataset.Lx_OBS, predictions_rf)};
-    results_test_rf(i,"R2") = {computeR2(testing_dataset.Lx_OBS, predictions_rf)};
-    results_test_rf(i,"Corr Coeff") = {computeCorrCoef(testing_dataset.Lx_OBS, predictions_rf)};
+    predictions_rf = model_rf.model.predictFcn(removevars(testing_dataset, {'DATE','Dataset_Type'}));
+    results_test_rf = compute_metrics(testing_dataset(:,targetFeatureName), predictions_rf,iterationLabel(i),results_test_rf);
 
     %% Training lsboost model
     fprintf("\n===================================================================\n");
@@ -94,26 +79,12 @@ for i = 1: niteration
     fprintf(strcat("Training model using lsboost with k=", string(k), "\n"));
     fprintf("===================================================================\n");
     
-    model_lsb = lsboost_function(training_dataset,targetFeatureName,max_objective_evaluations, k);
-    results_training_lsb(i,"RMSE") = {model_lsb.metrics.rmse};
-    results_training_lsb(i,"MAE") = {computeMAE(training_dataset.Lx_OBS, model_lsb.predictions)};
-    results_training_lsb(i,"RSE") = {computeRSE(training_dataset.Lx_OBS, model_lsb.predictions)};
-    results_training_lsb(i,"RRSE") = {sqrt(table2array(results_training_lsb(i,"RSE")))};
-    results_training_lsb(i,"RAE") = {computeRAE(training_dataset.Lx_OBS, model_lsb.predictions)};
-    results_training_lsb(i,"R2") = {computeR2(training_dataset.Lx_OBS, model_lsb.predictions)};
-    results_training_lsb(i,"Corr Coeff") = {computeCorrCoef( training_dataset.Lx_OBS, model_lsb.predictions)};
+    model_lsb = lsboost_function(removevars(training_dataset, {'DATE','Dataset_Type'}),targetFeatureName,max_objective_evaluations, k);
+    results_training_lsb = compute_metrics(training_dataset(:,targetFeatureName),model_lsb.validation_results.validation_predictions, iterationLabel(i), results_training_lsb);
     
     %% Testing lsboost
-    predictions_lsb = model_lsb.model.predictFcn(testing_dataset);
-    results_test_lsb(i,"RMSE") = {computeRMSE(testing_dataset.Lx_OBS, predictions_lsb)};
-    results_test_lsb(i,"MAE") = {computeMAE(testing_dataset.Lx_OBS, predictions_lsb)};
-    results_test_lsb(i,"RSE") = {computeRSE(testing_dataset.Lx_OBS, predictions_lsb)};
-    results_test_lsb(i,"RRSE") = {sqrt(table2array(results_test_lsb(i,"RSE")))};
-    results_test_lsb(i,"RAE") = {computeRAE(testing_dataset.Lx_OBS, predictions_lsb)};
-    results_test_lsb(i,"R2") = {computeR2(testing_dataset.Lx_OBS, predictions_lsb)};
-    results_test_lsb(i,"Corr Coeff") = {computeCorrCoef(testing_dataset.Lx_OBS, predictions_rf)};
-    
-    disp(string(testing_dataset.Lx_OBS));
+    predictions_lsb = model_lsb.model.predictFcn(removevars(testing_dataset, {'DATE','Dataset_Type'}));
+    results_test_lsb = compute_metrics(testing_dataset(:,targetFeatureName), predictions_lsb,iterationLabel(i),results_test_lsb);
 
     clc;
     close all;
@@ -136,48 +107,6 @@ plotPerformance(table2array(results_test_rf), 'Test: Random forest');
 
 subplot(2,2,4);
 plotPerformance(table2array(results_test_lsb), 'Test: Lsboost');
-
-
-function [training, test] = generateTrainingTest(dataset, percetageSplitData)
-    % Split randomly in training and test
-    nSample = height(dataset);
-    rng('shuffle');
-    idx = randperm(nSample)  ;
-    training = dataset(idx(1:round(percetageSplitData*nSample)),:) ; 
-    test = dataset(idx(round(percetageSplitData*nSample)+1:end),:) ;
-end
-
-function [rmse] = computeRMSE(obs, pred)
-    rmse = sqrt(sum((obs - pred).^2)/height(obs));
-end
-
-function [mae] = computeMAE(obs, pred)
-    mae = (sum(abs(pred-obs)))/height(obs);
-end
-
-function [rse] = computeRSE (obs, pred)
-    num = sum((pred-obs).^2);
-    den = sum((obs-mean(obs)).^2);
-    rse = num/den;
-end
-
-function [rae] = computeRAE (obs, pred)
-    num = sum(abs(pred-obs));
-    den = sum(abs(mean(obs) - obs));
-    rae = num / den;
-end
-
-function [r2] = computeR2 (obs, pred)
-    sse = sum((obs-pred).^2);
-    sst = sum((obs - mean(obs)).^2);
-    r2 = 1 - (sse/sst);
-end
-
-function [r] = computeCorrCoef(obs, pred)
-    corr_coeff_matrix = corrcoef(obs, pred);
-    r = corr_coeff_matrix(1,2);
-end
-
 
 function [] = plotPerformance(dataset, titlePlot)
     plot(dataset, '--.', 'MarkerSize',18,'MarkerEdgeColor','auto');
