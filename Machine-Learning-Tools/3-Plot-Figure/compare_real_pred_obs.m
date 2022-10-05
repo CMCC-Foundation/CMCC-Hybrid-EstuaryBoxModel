@@ -19,9 +19,9 @@ function [] = plotPerfectFit(obs, pred, modelName, ylab)
     end
     
     x = linspace(1,numel(obs),numel(obs));
-    plot(x,obs, '-o','LineWidth',1.3,'MarkerFaceColor','#0072BD');
+    plot(x,obs, '-','LineWidth',1.3,'MarkerFaceColor','#0072BD');
     hold on;
-    plot(x,pred,'-o','LineWidth',1.3,'MarkerFaceColor','#D95319');
+    plot(x,pred,'-','LineWidth',1.3,'MarkerFaceColor','#D95319');
     xlim([0 max(x)+1]);
     xlabel('Record number');
     ylabel(ylab);

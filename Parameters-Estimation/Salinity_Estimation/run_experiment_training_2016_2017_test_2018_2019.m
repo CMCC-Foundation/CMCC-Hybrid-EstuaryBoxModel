@@ -32,33 +32,32 @@ salinity_test_dataset_2018 = salinity_dataset(salinity_dataset.Year == 2018, :);
 salinity_test_dataset_2019 = salinity_dataset(salinity_dataset.Year == 2019, :);
 salinity_test_dataset_2018_2019 = salinity_dataset(salinity_dataset.Year == 2018 | salinity_dataset.Year == 2019, :);
 
-%{
 save('0-Dataset/training_2016_2017_test_2018_2019_comparing_old_model/SALINITY_OLD_MODEL_PREDICTIONS.mat', ...
     'salinity_dataset');
 save('0-Dataset/training_2016_2017_test_2018_2019_comparing_old_model/Salinity-Training-Dataset_2016_2017.mat', ...
     'salinity_training_dataset');
 save('0-Dataset/training_2016_2017_test_2018_2019_comparing_old_model/Salinity-Test-Dataset_2018_2019.mat', ...
     'salinity_test_dataset_2018_2019');
-%}
+
 %% Create table for k-fold cross validation results
-algorithm_names = {'random_forest', 'lsboost', 'neural_network' };
+algorithm_names = {'random_forest', 'lsboost', 'neural_network', 'old_model' };
 
 results_training = table('Size', [4 8], ...
     'VariableTypes', {'double','double','double','double', 'double', 'double', 'double', 'double'}, ...
     'VariableNames', {'RMSE', 'NRMSE', 'MAE','RSE', 'RRSE','RAE', 'R2', 'Corr Coeff'},...
-    'RowNames', [algorithm_names, 'old_model']);
+    'RowNames', algorithm_names);
 
 results_test_2018_dataset = table('Size', [4 8], ...
     'VariableTypes', {'double', 'double', 'double','double', 'double', 'double', 'double', 'double'}, ...
     'VariableNames', {'RMSE', 'NRMSE', 'MAE','RSE', 'RRSE','RAE', 'R2', 'Corr Coeff'},...
-    'RowNames', [algorithm_names, 'old_model']);
+    'RowNames', algorithm_names);
 
-results_test_2019_dataset = table('Size', [3 8], ...
+results_test_2019_dataset = table('Size', [4 8], ...
     'VariableTypes', {'double', 'double', 'double','double', 'double', 'double', 'double', 'double'}, ...
     'VariableNames', {'RMSE', 'NRMSE', 'MAE','RSE', 'RRSE','RAE', 'R2', 'Corr Coeff'},...
     'RowNames', algorithm_names);
 
-results_test_2018_2019_dataset = table('Size', [3 8], ...
+results_test_2018_2019_dataset = table('Size', [4 8], ...
     'VariableTypes', {'double', 'double', 'double','double', 'double', 'double', 'double', 'double'}, ...
     'VariableNames', {'RMSE', 'NRMSE', 'MAE','RSE', 'RRSE','RAE', 'R2', 'Corr Coeff'},...
     'RowNames', algorithm_names);
@@ -177,18 +176,18 @@ results_test_2018_2019_dataset = compute_metrics(salinity_test_dataset_2018_2019
 result_trained_model.neural_network.test_results.test_2018_2019_dataset.metrics = results_test_2018_2019_dataset("neural_network",:);
 
 %% Update metrics from old model
-results_training = compute_metrics(salinity_training_dataset(:, targetFeatureName), salinity_training_dataset(:,"Salinity_Old_model"), "old_model", results_training);
-results_test_2018_dataset = compute_metrics(salinity_test_dataset_2018(:, targetFeatureName), salinity_test_dataset_2018(:,"Salinity_Old_model"), "old_model", results_test_2018_dataset);
+results_training = compute_metrics(salinity_training_dataset(:, targetFeatureName), salinity_training_dataset(:,"Salinity_Old_model"), algorithm_names(4), results_training);
+results_test_2018_dataset = compute_metrics(salinity_test_dataset_2018(:, targetFeatureName), salinity_test_dataset_2018(:,"Salinity_Old_model"), algorithm_names(4), results_test_2018_dataset);
+results_test_2019_dataset = compute_metrics(salinity_test_dataset_2019(:, targetFeatureName), salinity_test_dataset_2019(:,"Salinity_Old_model"), algorithm_names(4), results_test_2019_dataset);
+results_test_2018_2019_dataset = compute_metrics(salinity_test_dataset_2018_2019(:, targetFeatureName), salinity_test_dataset_2018_2019(:,"Salinity_Old_model"), algorithm_names(4), results_test_2018_2019_dataset);
 
 %% close plot optimization 
 clc;
 close all;
 
 %% Save results
-%{
 writetable(results_training, '1-Trained-Models/training_2016_2017_test_2018_2019_comparing_old_model/Results-salinity-calibration-model-k-10-old-configuration.xlsx', 'WriteRowNames',true);
 writetable(results_test_2018_dataset, '1-Trained-Models/training_2016_2017_test_2018_2019_comparing_old_model/Results-salinity-test-2018-model-k-10-old-configuration.xlsx', 'WriteRowNames',true);
 writetable(results_test_2019_dataset, '1-Trained-Models/training_2016_2017_test_2018_2019_comparing_old_model/Results-salinity-test-2019-model-k-10-old-configuration.xlsx', 'WriteRowNames',true);
 writetable(results_test_2018_2019_dataset, '1-Trained-Models/training_2016_2017_test_2018_2019_comparing_old_model/Results-salinity-test-2018-2019-model-k-10-old-configuration.xlsx', 'WriteRowNames',true);
 save("1-Trained-Models\training_2016_2017_test_2018_2019_comparing_old_model\Salinity-Trained-Tested-model-k-10-old-configuration.mat","result_trained_model");
-%}
