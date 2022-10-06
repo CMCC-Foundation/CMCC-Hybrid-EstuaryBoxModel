@@ -27,14 +27,13 @@ salinity_dataset = remove_missing_data_features(salinity_dataset);
 %% Split original dataset in training and test set
 [salinity_training_dataset, salinity_test_dataset] = create_training_test_dataset(salinity_dataset, 0.3);
 
-%{
-save('0-Dataset/training_test_2016_2019/SALINITY_OBS_WITH_FEATURES.mat', ...
-    'salinity_dataset');
 save('0-Dataset/training_test_2016_2019/Salinity-Training-Dataset.mat', ...
     'salinity_training_dataset');
 save('0-Dataset/training_test_2016_2019/Salinity-Test-Dataset.mat', ...
     'salinity_test_dataset');
-%}
+writetable(salinity_training_dataset, '0-Dataset/training_test_2016_2019/Salinity-Training-Dataset.xlsx', 'WriteRowNames',true);
+writetable(salinity_test_dataset, '0-Dataset/training_test_2016_2019/Salinity-Test-Dataset.xlsx', 'WriteRowNames',true);
+
 %% Create table for k-fold cross validation results
 algorithm_names = {'random_forest', 'lsboost', 'neural_network' };
 
@@ -55,7 +54,7 @@ targetFeatureName = 'Salinity_Obs';
 
 %% Set maxObjectiveEvaluations as maximum number of objective functions to
 %  be evaluated in the optimization process
-max_objective_evaluations = 10;
+max_objective_evaluations = 60;
 
 %% Set k to be use in k-fold cross validation
 k = 10;
@@ -114,9 +113,6 @@ result_trained_model.neural_network.test_results.metrics = results_test("neural_
 
 clc;
 close all;
-%{
 writetable(results_training, '1-Trained-Models/training_test_2016_2019/Results-salinity-calibration-model-k-10.xlsx', 'WriteRowNames',true);
 writetable(results_test, '1-Trained-Models/training_test_2016_2019/Results-salinity-test-model-k-10.xlsx', 'WriteRowNames',true);
 save("1-Trained-Models\training_test_2016_2019\Salinity-Trained-Tested-model-k-10.mat","result_trained_model");
-
-%}

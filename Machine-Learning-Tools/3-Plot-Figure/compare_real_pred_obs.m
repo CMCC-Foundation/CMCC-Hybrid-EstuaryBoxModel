@@ -18,6 +18,7 @@ function [] = plotPerfectFit(obs, pred, modelName, ylab)
         pred = table2array(pred);
     end
     
+    hAx = gca;
     x = linspace(1,numel(obs),numel(obs));
     plot(x,obs, '-','LineWidth',1.3,'MarkerFaceColor','#0072BD');
     hold on;
@@ -26,6 +27,7 @@ function [] = plotPerfectFit(obs, pred, modelName, ylab)
     xlabel('Record number');
     ylabel(ylab);
     title(modelName);
+    hAx.LineWidth=1;
     legend('Observed','Modelled','Location','northeast');
     set(gca,'FontSize',12);
     grid on;

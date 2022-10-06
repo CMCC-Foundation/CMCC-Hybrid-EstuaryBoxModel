@@ -21,14 +21,15 @@ function [] = plotPerfectFit(obs, pred, modelName)
     if(istable(pred))
         pred = table2array(pred);
     end
-    
+    hAx=gca;                  
     plot(obs,pred, '.','MarkerSize',18, ...
         'MarkerFaceColor',[0.00,0.45,0.74],'MarkerEdgeColor','auto');
     hold on;
     xy = linspace(0, 30,30 );
     plot(xy,xy,'k-','LineWidth',1.3);
-    xlim([0 max(obs)+1]);
-    ylim([0 max(pred)+1]);
+    hAx.LineWidth=1;
+    xlim([0 30]);
+    ylim([0 30]);
     xlabel('True response');
     ylabel('Predicted response');
     title(modelName);
@@ -49,9 +50,8 @@ function [] = plotResidualBar(resumeTable,modelName, response)
     if(istable(pred))
         pred = table2array(pred);
     end
-    
+    hAx = gca;
     index = linspace(1, height(resumeTable), height(resumeTable));
-    
     hold on;
     plot(index, obs, '.','LineWidth',0.5, 'Color',[0.00,0.45,0.74], ...
         'MarkerSize',18, 'MarkerEdgeColor','auto');
@@ -63,8 +63,10 @@ function [] = plotResidualBar(resumeTable,modelName, response)
             'Color', [0.85,0.33,0.10], 'LineWidth', 1,  ...
             'MarkerSize',6, 'MarkerEdgeColor','auto');
     end
-
+    
+    hAx.LineWidth=1;
     xlim([0 max(index)+1]);
+    ylim([0 30]);
     legend('True','Predicted','Errors','Location','northwest');
     xlabel('Record number');
     ylabel('Response');
