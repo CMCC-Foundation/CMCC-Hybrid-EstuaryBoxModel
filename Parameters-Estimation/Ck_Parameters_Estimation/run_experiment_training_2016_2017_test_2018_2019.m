@@ -8,7 +8,7 @@
 %  The aim is to compare the old model performance with these new models.
 
 %% Add to path subdirectory
-addpath(genpath('0-Dataset\'));
+addpath(genpath('0-Dataset\training_2016_2017_test_2018_2019_comparing_old_model'));
 addpath(genpath('..\..\Machine-Learning-Tools\1-Utility'));
 addpath(genpath('..\..\Machine-Learning-Tools\2-Machine-Learning-Function'));
 addpath(genpath('1_Trained-Models\training_2016_2017_test_2018_2019_comparing_old_model'));
@@ -32,9 +32,9 @@ ck_test_dataset_2018 = ck_dataset(ck_dataset.Year == 2018, :);
 ck_test_dataset_2019 = ck_dataset(ck_dataset.Year == 2019, :);
 ck_test_dataset_2018_2019 = ck_dataset(ck_dataset.Year == 2018 | ck_dataset.Year == 2019, :);
 
-save('0-Dataset/CK_OLD_MODEL_PREDICTIONS.mat', 'ck_dataset');
-save('0-Dataset/Ck-Training-Dataset_2016_2017.mat','ck_training_dataset');
-save('0-Dataset/Ck-Test-Dataset_2018_2019.mat','ck_test_dataset_2018_2019');
+save('0-Dataset/training_2016_2017_test_2018_2019_comparing_old_model/CK_OLD_MODEL_PREDICTIONS.mat', 'ck_dataset');
+save('0-Dataset/training_2016_2017_test_2018_2019_comparing_old_model/Ck-Training-Dataset_2016_2017.mat','ck_training_dataset');
+save('0-Dataset/training_2016_2017_test_2018_2019_comparing_old_model/Ck-Test-Dataset_2018_2019.mat','ck_test_dataset_2018_2019');
 
 %% Create table for k-fold cross validation results
 algorithm_names = {'random_forest', 'lsboost', 'neural_network', 'old_model' };
