@@ -25,7 +25,7 @@ varTypes = ["int16", "double", "double", "double", "double","double","double"];
 salinity_dataset = remove_missing_data_features(salinity_dataset);
 
 %% Split original dataset in training and test set
-[salinity_training_dataset, salinity_test_dataset] = create_training_test_dataset(salinity_dataset, 0.3);
+[salinity_training_dataset, salinity_test_dataset] = create_training_test_dataset(salinity_dataset, 0.2);
 
 save('0-Dataset/training_test_2016_2019/Salinity-Training-Dataset.mat', ...
     'salinity_training_dataset');
@@ -57,7 +57,7 @@ targetFeatureName = 'Salinity_Obs';
 max_objective_evaluations = 60;
 
 %% Set k to be use in k-fold cross validation
-k = 10;
+k = 5;
 
 %% Training random forest model
 fprintf("\n===================================================================\n");

@@ -25,7 +25,7 @@ varTypes = ["int16", "double", "double", "double", "double","double"];
 ck_dataset = remove_missing_data_features(ck_dataset);
 
 %% Split original dataset in training and test set
-[ck_training_dataset, ck_test_dataset] = create_training_test_dataset(ck_dataset, 0.3);
+[ck_training_dataset, ck_test_dataset] = create_training_test_dataset(ck_dataset, 0.2);
 
 save('0-Dataset/training_test_2016_2019/Ck-Training-Dataset.mat', ...
     'ck_training_dataset');
@@ -57,7 +57,7 @@ targetFeatureName = 'CK_Obs';
 max_objective_evaluations = 60;
 
 %% Set k to be use in k-fold cross validation
-k = 10;
+k = 5;
 
 %% Training random forest model
 fprintf("\n===================================================================\n");
