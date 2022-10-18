@@ -2,8 +2,8 @@
 %  Given the dataset, we trained different machine learning and deep learning 
 %  algorithm to perform a regression task. 
 %  We also use hyperparameters optimization and cross-validation
-%  with k = 10. 
-%  We use 70% of examples to train and validate our model, and 30% examples to test it. 
+%  with k = 5. 
+%  We use 80% of examples to train and validate our model, and 20% examples to test it. 
 
 %% Add to path subdirectory
 addpath(genpath('0-Dataset\training_test_2016_2019'));
@@ -100,7 +100,7 @@ fprintf(strcat("Training model using ", algorithm_names(3), " with k=", string(k
 fprintf("===================================================================\n");
 
 % save training results and performance
-result_trained_model.neural_network = neural_network_function(removevars(salinity_training_dataset, {'Year'}),targetFeatureName,1,3, 10, 50,max_objective_evaluations, k);
+result_trained_model.neural_network = neural_network_function(removevars(salinity_training_dataset, {'Year'}),targetFeatureName,1,3, 10, 100,max_objective_evaluations, k);
 results_training = compute_metrics(salinity_training_dataset(:, targetFeatureName), result_trained_model.neural_network.validation_results.validation_predictions, algorithm_names(3), results_training);
 result_trained_model.neural_network.validation_results.metrics = results_training("neural_network",:);
 

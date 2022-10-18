@@ -50,7 +50,7 @@ results_test = table('Size', [3 8], ...
 
 result_trained_model = struct();
 
-k = 4;
+k = 5;
 
 %% Training random forest model
 fprintf("\n===================================================================\n");

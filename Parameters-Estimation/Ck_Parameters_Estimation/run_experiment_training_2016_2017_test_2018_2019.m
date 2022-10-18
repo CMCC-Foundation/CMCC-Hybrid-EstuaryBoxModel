@@ -2,7 +2,7 @@
 %  Given the dataset, we trained different machine learning and deep learning 
 %  algorithm to perform a regression task. 
 %  We also use hyperparameters optimization and cross-validation
-%  with k = 10. 
+%  with k = 5. 
 %  We use data from 2016-2017 to train and validate our model, and data 
 %  from 2018-2019 examples to test it.
 %  The aim is to compare the old model performance with these new models.
@@ -69,7 +69,7 @@ targetFeatureName = 'CK_Obs';
 max_objective_evaluations = 60;
 
 %% Set k to be use in k-fold cross validation
-k = 10;
+k = 5;
 
 %% Training random forest model
 fprintf("\n===================================================================\n");
@@ -145,7 +145,7 @@ fprintf(strcat("Training model using ", algorithm_names(3), " with k=", string(k
 fprintf("===================================================================\n");
 
 % save training results and performance
-result_trained_model.neural_network = neural_network_function(removevars(ck_training_dataset, {'Year', 'Ck_old_model'}),targetFeatureName,1,3, 10, 50,max_objective_evaluations, k);
+result_trained_model.neural_network = neural_network_function(removevars(ck_training_dataset, {'Year', 'Ck_old_model'}),targetFeatureName,1,3, 10, 100,max_objective_evaluations, k);
 results_training = compute_metrics(ck_training_dataset(:, targetFeatureName), result_trained_model.neural_network.validation_results.validation_predictions, algorithm_names(3), results_training);
 result_trained_model.neural_network.validation_results.metrics = results_training("neural_network",:);
 
