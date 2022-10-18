@@ -3,7 +3,7 @@
 %  After that,  we trained different machine learning and deep learning 
 %  algorithm to perform a regression task. 
 %  We also use hyperparameters optimization and cross-validation
-%  with k = 4. 
+%  with k = 5. 
 %  We use 20 examples to train and validate our model, and 5 examples to test it. 
 
 %% Add to path subdirectory
