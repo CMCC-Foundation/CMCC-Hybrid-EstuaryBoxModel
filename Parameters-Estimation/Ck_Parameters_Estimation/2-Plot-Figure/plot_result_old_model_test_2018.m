@@ -1,7 +1,7 @@
-addpath(genpath('..\0-Dataset\'));
+addpath(genpath('..\0-Dataset\training_2016_2017_test_2018_2019_comparing_old_model'));
 addpath(genpath('..\1_Trained-Models\training_2016_2017_test_2018_2019_comparing_old_model'));
 addpath(genpath('..\..\..\Machine-Learning-Tools\3-Plot-Figure'));
-load("..\0-Dataset\CK_OLD_MODEL_PREDICTIONS.mat")
+load("..\0-Dataset\training_2016_2017_test_2018_2019_comparing_old_model\CK_OLD_MODEL_PREDICTIONS.mat")
 load("..\1-Trained-Models\training_2016_2017_test_2018_2019_comparing_old_model\Ck-Trained-Tested-model-k-10-old-configuration.mat");
 
 algorithm_names = {'old model','random forest', 'lsboost', 'neural network'};
