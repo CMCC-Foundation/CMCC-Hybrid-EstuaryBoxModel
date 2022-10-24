@@ -3,7 +3,7 @@
 %  After that,  we trained different machine learning and deep learning 
 %  algorithm to perform a regression task. 
 %  We also use hyperparameters optimization and cross-validation
-%  with k = 4. 
+%  with k = 5. 
 %  In the end, some figures are plotted and dataset and model are saved. 
 
 %% Add to path subdirectory
@@ -14,11 +14,11 @@ addpath(genpath('1-Trained-Models'));
 
 %% Set import dataset settings
 filepath = "0-Dataset\LX_OBS_WITH_FEATURES.xlsx";
-nVars = 7;
-dataRange = "A2:G26";
+nVars = 8;
+dataRange = "A2:H31";
 sheetName = "Lx_obs";
-varNames = ["DATE","Q_l", "Q_r", "S_l", "Q_tide", "Lx_OBS", "Dataset_Type"]; 
-varTypes = ["datetime", "double", "double", "double", "double","double","categorical"];
+varNames = ["DATE","Q_l", "Q_r", "S_l", "Q_tide", "Lx_OBS", "Lx_Model", "Dataset_Type"]; 
+varTypes = ["datetime", "double", "double", "double", "double","double", "double","categorical"];
 
 [lx_dataset] = import_dataset(filepath, nVars, dataRange, sheetName, varNames, varTypes);
 save('0-Dataset/LX_OBS_WITH_FEATURES.mat', ...
@@ -44,14 +44,14 @@ results = table('Size', [2 8], ...
 
 result_trained_model = struct();
 
-k = 4;
+k = 5;
 
 %% Training random forest model
 fprintf("\n===================================================================\n");
 fprintf(strcat("Training model using ", algorithm_names(1), " with k=", string(k), "\n"));
 fprintf("===================================================================\n");
 
-result_trained_model.random_forest = random_forest_function(removevars(training_dataset, {'DATE','Dataset_Type'}),targetFeatureName,max_objective_evaluations, k);
+result_trained_model.random_forest = random_forest_function(removevars(training_dataset, {'DATE','Dataset_Type', 'Lx_Model'}),targetFeatureName,max_objective_evaluations, k);
 results = compute_metrics(training_dataset(:,targetFeatureName),result_trained_model.random_forest.validation_results.validation_predictions, algorithm_names(1), results);
 result_trained_model.random_forest.validation_results.metrics = results("random_forest",:);
 
@@ -60,12 +60,12 @@ fprintf("\n===================================================================\n
 fprintf(strcat("Training model using ", algorithm_names(2), " with k=", string(k), "\n"));
 fprintf("===================================================================\n");
 
-result_trained_model.lsboost = lsboost_function(removevars(training_dataset, {'DATE','Dataset_Type'}),targetFeatureName,max_objective_evaluations, k);
+result_trained_model.lsboost = lsboost_function(removevars(training_dataset, {'DATE','Dataset_Type', 'Lx_Model'}),targetFeatureName,max_objective_evaluations, k);
 results = compute_metrics(training_dataset(:,targetFeatureName),result_trained_model.lsboost.validation_results.validation_predictions, algorithm_names(2), results);
 result_trained_model.lsboost.validation_results.metrics = results("lsboost",:);
 
 clc;
 close all;
 
-writetable(results, '1-Trained-Models/Trained-All-Dataset-k-4/Results-Trained-model-k-4.xlsx', 'WriteRowNames',true);
-save("1-Trained-Models/Trained-All-Dataset-k-4/Trained-model-k-4.mat","result_trained_model");
+writetable(results, '1-Trained-Models/Trained-All-Dataset-k-5/Results-Trained-model-k-5.xlsx', 'WriteRowNames',true);
+save("1-Trained-Models/Trained-All-Dataset-k-5/Trained-model-k-5.mat","result_trained_model");

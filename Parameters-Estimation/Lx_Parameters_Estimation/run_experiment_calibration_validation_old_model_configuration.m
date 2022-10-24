@@ -14,11 +14,11 @@ addpath(genpath('1-Trained-Models'));
 
 %% Set import dataset settings
 filepath = "0-Dataset\LX_OBS_WITH_FEATURES.xlsx";
-nVars = 7;
-dataRange = "A2:G26";
+nVars = 8;
+dataRange = "A2:H31";
 sheetName = "Lx_obs";
-varNames = ["DATE","Q_l", "Q_r", "S_l", "Q_tide", "Lx_OBS", "Dataset_Type"]; 
-varTypes = ["datetime", "double", "double", "double", "double","double","categorical"];
+varNames = ["DATE","Q_l", "Q_r", "S_l", "Q_tide", "Lx_OBS", "Lx_Model", "Dataset_Type"]; 
+varTypes = ["datetime", "double", "double", "double", "double","double", "double","categorical"];
 
 [lx_dataset] = import_dataset(filepath, nVars, dataRange, sheetName, varNames, varTypes);
 save('0-Dataset/LX_OBS_WITH_FEATURES.mat', ...
@@ -58,12 +58,12 @@ fprintf(strcat("Training model using ", algorithm_names(1), " with k=", string(k
 fprintf("===================================================================\n");
 
 % save training results and performance
-result_trained_model.random_forest = random_forest_function(removevars(training_dataset, {'DATE','Dataset_Type'}),targetFeatureName,max_objective_evaluations, k);
+result_trained_model.random_forest = random_forest_function(removevars(training_dataset, {'DATE','Dataset_Type', 'Lx_Model'}),targetFeatureName,max_objective_evaluations, k);
 results_training = compute_metrics(training_dataset(:,targetFeatureName),result_trained_model.random_forest.validation_results.validation_predictions, algorithm_names(1), results_training);
 result_trained_model.random_forest.validation_results.metrics = results_training("random_forest",:);
 
 % save test results
-result_trained_model.random_forest.test_results.test_predictions = result_trained_model.random_forest.model.predictFcn(removevars(testing_dataset, {'DATE','Dataset_Type'}));
+result_trained_model.random_forest.test_results.test_predictions = result_trained_model.random_forest.model.predictFcn(removevars(testing_dataset, {'DATE','Dataset_Type', 'Lx_Model'}));
 results_test = compute_metrics(testing_dataset(:,targetFeatureName), result_trained_model.random_forest.test_results.test_predictions, algorithm_names(1), results_test);
 result_trained_model.random_forest.test_results.metrics = results_test("random_forest",:);
 
@@ -72,37 +72,36 @@ fprintf("\n===================================================================\n
 fprintf(strcat("Training model using ", algorithm_names(2), " with k=", string(k), "\n"));
 fprintf("===================================================================\n");
 
-result_trained_model.lsboost = lsboost_function(removevars(training_dataset, {'DATE','Dataset_Type'}),targetFeatureName,max_objective_evaluations, k);
+result_trained_model.lsboost = lsboost_function(removevars(training_dataset, {'DATE','Dataset_Type', 'Lx_Model'}),targetFeatureName,max_objective_evaluations, k);
 results_training = compute_metrics(training_dataset(:,targetFeatureName),result_trained_model.lsboost.validation_results.validation_predictions, algorithm_names(2), results_training);
 result_trained_model.lsboost.validation_results.metrics = results_training("lsboost",:);
 
 % save test results
-result_trained_model.lsboost.test_results.test_predictions = result_trained_model.lsboost.model.predictFcn(removevars(testing_dataset, {'DATE','Dataset_Type'}));
+result_trained_model.lsboost.test_results.test_predictions = result_trained_model.lsboost.model.predictFcn(removevars(testing_dataset, {'DATE','Dataset_Type', 'Lx_Model'}));
 results_test = compute_metrics(testing_dataset(:,targetFeatureName), result_trained_model.lsboost.test_results.test_predictions, algorithm_names(2), results_test);
 result_trained_model.lsboost.test_results.metrics = results_test("lsboost",:);
 
 %% Compute metrics on old model
-load("0-Dataset\Old_Model_Training_Test_Prediction.mat");
 old_model_results = struct();
 
 % compute training performance
-results_training = compute_metrics(Old_Model_Training.LX_Obs,Old_Model_Training.LX_Pred,algorithm_names(3), results_training);
+results_training = compute_metrics(training_dataset.Lx_OBS,training_dataset.Lx_Model,algorithm_names(3), results_training);
 validation_results = struct();
 result_trained_model.old_model_results = old_model_results;
 result_trained_model.old_model_results.validation_results = validation_results;
-result_trained_model.old_model_results.validation_results.validation_predictions = Old_Model_Training.LX_Pred;
+result_trained_model.old_model_results.validation_results.validation_predictions = training_dataset.Lx_Model;
 result_trained_model.old_model_results.validation_results.metrics = results_training("old_model",:);
 
 % compute test performance
-results_test = compute_metrics(Old_Model_Test.LX_Obs,Old_Model_Test.LX_Pred,algorithm_names(3), results_test);
+results_test = compute_metrics(training_dataset.Lx_OBS,training_dataset.Lx_Model,algorithm_names(3), results_test);
 test_results = struct();
 result_trained_model.old_model_results.test_results = test_results;
-result_trained_model.old_model_results.test_results.test_predictions = Old_Model_Test.LX_Pred;
+result_trained_model.old_model_results.test_results.test_predictions = testing_dataset.Lx_Model;
 result_trained_model.old_model_results.test_results.metrics = results_test("old_model",:);
 
 clc;
 close all;
 
-writetable(results_training, '1-Trained-Models/Trained-Test-Results-k-4-old-model-configuration/Results-calibration-model-k-4.xlsx', 'WriteRowNames',true);
-writetable(results_test, '1-Trained-Models/Trained-Test-Results-k-4-old-model-configuration/Results-test-model-k-4.xlsx', 'WriteRowNames',true);
-save("1-Trained-Models/Trained-Test-Results-k-4-old-model-configuration/Trained-Tested-model-k-4.mat","result_trained_model");
+writetable(results_training, '1-Trained-Models/Trained-Test-Results-k-5-old-model-configuration/Results-calibration-model-k-5.xlsx', 'WriteRowNames',true);
+writetable(results_test, '1-Trained-Models/Trained-Test-Results-k-5-old-model-configuration/Results-test-model-k-5.xlsx', 'WriteRowNames',true);
+save("1-Trained-Models/Trained-Test-Results-k-5-old-model-configuration/Trained-Tested-model-k-5.mat","result_trained_model");
