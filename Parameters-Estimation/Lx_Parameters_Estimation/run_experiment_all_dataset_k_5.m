@@ -15,21 +15,20 @@ addpath(genpath('1-Trained-Models'));
 %% Set import dataset settings
 filepath = "0-Dataset\LX_OBS_WITH_FEATURES.xlsx";
 nVars = 8;
-dataRange = "A2:H31";
+dataRange = "A2:H26";
 sheetName = "Lx_obs";
 varNames = ["DATE","Q_l", "Q_r", "S_l", "Q_tide", "Lx_OBS", "Lx_Model", "Dataset_Type"]; 
 varTypes = ["datetime", "double", "double", "double", "double","double", "double","categorical"];
 
 [lx_dataset] = import_dataset(filepath, nVars, dataRange, sheetName, varNames, varTypes);
-save('0-Dataset/LX_OBS_WITH_FEATURES.mat', ...
-    'lx_dataset');
+save('0-Dataset/LX_OBS_WITH_FEATURES.mat','lx_dataset');
 
 %% Set target feature for the machine and deep learning model
 targetFeatureName = 'Lx_OBS';
 
 %% Set maxObjectiveEvaluations as maximum number of objective functions to
 %  be evaluated in the optimization process
-max_objective_evaluations = 60;
+max_objective_evaluations = 45;
 
 %% Removed useless features
 training_dataset = lx_dataset;

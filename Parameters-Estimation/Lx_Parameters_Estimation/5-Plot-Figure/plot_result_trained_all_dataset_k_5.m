@@ -1,8 +1,8 @@
 addpath(genpath('..\0-Dataset\'));
-addpath(genpath('..\1-Trained-Models\Trained-All-Dataset-k-4\'));
+addpath(genpath('..\1-Trained-Models\Trained-All-Dataset-k-5\'));
 addpath(genpath('..\..\..\Machine-Learning-Tools\3-Plot-Figure'));
 load("..\0-Dataset\LX_OBS_WITH_FEATURES.mat");
-load("..\1-Trained-Models\Trained-All-Dataset-k-4\Trained-model-k-4.mat");
+load("..\1-Trained-Models\Trained-All-Dataset-k-5\Trained-model-k-5.mat");
 
 algorithm_names = {'random forest', 'lsboost'};
 response = 'Lx_OBS';
