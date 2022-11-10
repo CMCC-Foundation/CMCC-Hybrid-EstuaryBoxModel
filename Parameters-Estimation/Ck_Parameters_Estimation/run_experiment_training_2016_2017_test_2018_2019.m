@@ -183,8 +183,8 @@ clc;
 close all;
 
 %% Save results
-writetable(results_training, '1-Trained-Models/training_2016_2017_test_2018_2019_comparing_old_model/Results-ck-calibration-model-k-10-old-configuration.xlsx', 'WriteRowNames',true);
-writetable(results_test_2018_dataset, '1-Trained-Models/training_2016_2017_test_2018_2019_comparing_old_model/Results-ck-test-2018-model-k-10-old-configuration.xlsx', 'WriteRowNames',true);
-writetable(results_test_2019_dataset, '1-Trained-Models/training_2016_2017_test_2018_2019_comparing_old_model/Results-ck-test-2019-model-k-10-old-configuration.xlsx', 'WriteRowNames',true);
-writetable(results_test_2018_2019_dataset, '1-Trained-Models/training_2016_2017_test_2018_2019_comparing_old_model/Results-ck-test-2018-2019-model-k-10-old-configuration.xlsx', 'WriteRowNames',true);
-save("1-Trained-Models\training_2016_2017_test_2018_2019_comparing_old_model\Ck-Trained-Tested-model-k-10-old-configuration.mat","result_trained_model");
+writetable(results_training, '1-Trained-Models/training_2016_2017_test_2018_2019_comparing_old_model/Results-ck-calibration-model-k-5-old-configuration.xlsx', 'WriteRowNames',true);
+writetable(results_test_2018_dataset, '1-Trained-Models/training_2016_2017_test_2018_2019_comparing_old_model/Results-ck-test-2018-model-k-5-old-configuration.xlsx', 'WriteRowNames',true);
+writetable(results_test_2019_dataset, '1-Trained-Models/training_2016_2017_test_2018_2019_comparing_old_model/Results-ck-test-2019-model-k-5-old-configuration.xlsx', 'WriteRowNames',true);
+writetable(results_test_2018_2019_dataset, '1-Trained-Models/training_2016_2017_test_2018_2019_comparing_old_model/Results-ck-test-2018-2019-model-k-5-old-configuration.xlsx', 'WriteRowNames',true);
+save("1-Trained-Models\training_2016_2017_test_2018_2019_comparing_old_model\Ck-Trained-Tested-model-k-5-old-configuration.mat","result_trained_model");

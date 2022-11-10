@@ -24,7 +24,7 @@ function [] = plotPerfectFit(obs, pred, modelName, ylab)
     hold on;
     plot(x,pred,'-','LineWidth',1.3,'MarkerFaceColor','#D95319');
     xlim([0 max(x)+1]);
-    ylim([0 30]);
+    ylim([0 630]);
     xlabel('Record number');
     ylabel(ylab);
     title(modelName);
