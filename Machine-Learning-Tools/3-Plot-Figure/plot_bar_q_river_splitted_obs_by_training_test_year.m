@@ -3,24 +3,24 @@ function plot_bar_q_river_splitted_obs_by_training_test_year(dataset)
     
     % training Q_River_LOW
     result(1,1) = height(dataset((dataset.Year == 2016 | dataset.Year == 2017) ...
-        & strcmp(string(dataset.Q_river_class), "LOW"),:));
+        & strcmp(string(dataset.QriverClass), "LOW"),:));
     % training Q_River_STRONG
     result(1,2) = height(dataset((dataset.Year == 2016 | dataset.Year == 2017) ...
-        & strcmp(string(dataset.Q_river_class), "STRONG"),:));
+        & strcmp(string(dataset.QriverClass), "STRONG"),:));
 
     % test 2018 Q_River_LOW
     result(2,1) = height(dataset((dataset.Year == 2018) ...
-        & strcmp(string(dataset.Q_river_class), "LOW"),:));
+        & strcmp(string(dataset.QriverClass), "LOW"),:));
     % test 2018 Q_River_STRONG
     result(2,2) = height(dataset((dataset.Year == 2018) ...
-        & strcmp(string(dataset.Q_river_class), "STRONG"),:));
+        & strcmp(string(dataset.QriverClass), "STRONG"),:));
 
         % test 2019 Q_River_LOW
     result(3,1) = height(dataset((dataset.Year == 2019) ...
-        & strcmp(string(dataset.Q_river_class), "LOW"),:));
+        & strcmp(string(dataset.QriverClass), "LOW"),:));
     % test 2019 Q_River_STRONG
     result(3,2) = height(dataset((dataset.Year == 2019) ...
-        & strcmp(string(dataset.Q_river_class), "STRONG"),:));
+        & strcmp(string(dataset.QriverClass), "STRONG"),:));
     
     figure();
     hAx=gca;

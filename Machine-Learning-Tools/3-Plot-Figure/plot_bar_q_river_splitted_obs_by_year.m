@@ -4,10 +4,10 @@ function plot_bar_q_river_splitted_obs_by_year(dataset)
     
     for i = 1:numel(year_obs)
         % Q_River_LOW
-        result(i,1) = height(dataset(dataset.Year == year_obs(i) & strcmp(string(dataset.Q_river_class), "LOW"),:));
+        result(i,1) = height(dataset(dataset.Year == year_obs(i) & strcmp(string(dataset.QriverClass), "LOW"),:));
 
         % Q_River_STRONG
-        result(i,2) = height(dataset(dataset.Year == year_obs(i) & strcmp(string(dataset.Q_river_class), "STRONG"),:));
+        result(i,2) = height(dataset(dataset.Year == year_obs(i) & strcmp(string(dataset.QriverClass), "STRONG"),:));
     end
 
     figure();
