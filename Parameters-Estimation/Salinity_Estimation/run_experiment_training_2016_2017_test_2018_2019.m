@@ -8,13 +8,13 @@
 %  The aim is to compare the old model performance with these new models.
 
 %% Add to path subdirectory
-addpath(genpath('0-Dataset\training_2016_2017_test_2018_2019_comparing_old_model'));
+addpath(genpath('0-Dataset\training_2016_2017_test_2018_2019_comparing_old_model\Q_river_All'));
 addpath(genpath('..\..\Machine-Learning-Tools\1-Utility'));
 addpath(genpath('..\..\Machine-Learning-Tools\2-Machine-Learning-Function'));
-addpath(genpath('1_Trained-Models\training_2016_2017_test_2018_2019_comparing_old_model'));
+addpath(genpath('1_Trained-Models\training_2016_2017_test_2018_2019_comparing_old_model\Q_river_All'));
 
 %% Set import dataset settings
-filepath = "0-Dataset\training_2016_2017_test_2018_2019_comparing_old_model\SALINITY_OLD_MODEL_PREDICTIONS.xlsx";
+filepath = "0-Dataset\training_2016_2017_test_2018_2019_comparing_old_model\Q_river_All\SALINITY_OLD_MODEL_PREDICTIONS.xlsx";
 nVars = 8;
 dataRange = "A2:H1462";
 sheetName = "Salinity_old_model";
@@ -32,11 +32,11 @@ salinity_test_dataset_2018 = salinity_dataset(salinity_dataset.Year == 2018, :);
 salinity_test_dataset_2019 = salinity_dataset(salinity_dataset.Year == 2019, :);
 salinity_test_dataset_2018_2019 = salinity_dataset(salinity_dataset.Year == 2018 | salinity_dataset.Year == 2019, :);
 
-save('0-Dataset/training_2016_2017_test_2018_2019_comparing_old_model/SALINITY_OLD_MODEL_PREDICTIONS.mat', ...
+save('0-Dataset/training_2016_2017_test_2018_2019_comparing_old_model/Q_river_All/SALINITY_OLD_MODEL_PREDICTIONS.mat', ...
     'salinity_dataset');
-save('0-Dataset/training_2016_2017_test_2018_2019_comparing_old_model/Salinity-Training-Dataset_2016_2017.mat', ...
+save('0-Dataset/training_2016_2017_test_2018_2019_comparing_old_model/Q_river_All/Salinity-Training-Dataset_2016_2017.mat', ...
     'salinity_training_dataset');
-save('0-Dataset/training_2016_2017_test_2018_2019_comparing_old_model/Salinity-Test-Dataset_2018_2019.mat', ...
+save('0-Dataset/training_2016_2017_test_2018_2019_comparing_old_model/Q_river_All/Salinity-Test-Dataset_2018_2019.mat', ...
     'salinity_test_dataset_2018_2019');
 
 %% Create table for k-fold cross validation results
@@ -186,8 +186,8 @@ clc;
 close all;
 
 %% Save results
-writetable(results_training, '1-Trained-Models/training_2016_2017_test_2018_2019_comparing_old_model/Results-salinity-calibration-model-k-5-old-configuration.xlsx', 'WriteRowNames',true);
-writetable(results_test_2018_dataset, '1-Trained-Models/training_2016_2017_test_2018_2019_comparing_old_model/Results-salinity-test-2018-model-k-5-old-configuration.xlsx', 'WriteRowNames',true);
-writetable(results_test_2019_dataset, '1-Trained-Models/training_2016_2017_test_2018_2019_comparing_old_model/Results-salinity-test-2019-model-k-5-old-configuration.xlsx', 'WriteRowNames',true);
-writetable(results_test_2018_2019_dataset, '1-Trained-Models/training_2016_2017_test_2018_2019_comparing_old_model/Results-salinity-test-2018-2019-model-k-5-old-configuration.xlsx', 'WriteRowNames',true);
-save("1-Trained-Models\training_2016_2017_test_2018_2019_comparing_old_model\Salinity-Trained-Tested-model-k-5-old-configuration.mat","result_trained_model");
+writetable(results_training, '1-Trained-Models/training_2016_2017_test_2018_2019_comparing_old_model/Q_river_All/Results-salinity-calibration-model-k-5-old-configuration.xlsx', 'WriteRowNames',true);
+writetable(results_test_2018_dataset, '1-Trained-Models/training_2016_2017_test_2018_2019_comparing_old_model/Q_river_All/Results-salinity-test-2018-model-k-5-old-configuration.xlsx', 'WriteRowNames',true);
+writetable(results_test_2019_dataset, '1-Trained-Models/training_2016_2017_test_2018_2019_comparing_old_model/Q_river_All/Results-salinity-test-2019-model-k-5-old-configuration.xlsx', 'WriteRowNames',true);
+writetable(results_test_2018_2019_dataset, '1-Trained-Models/training_2016_2017_test_2018_2019_comparing_old_model/Q_river_All/Results-salinity-test-2018-2019-model-k-5-old-configuration.xlsx', 'WriteRowNames',true);
+save("1-Trained-Models\training_2016_2017_test_2018_2019_comparing_old_model\Q_river_All\Salinity-Trained-Tested-model-k-5-old-configuration.mat","result_trained_model");
