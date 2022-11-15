@@ -8,10 +8,10 @@
 %  The aim is to compare the old model performance with these new models.
 
 %% Add to path subdirectory
-addpath(genpath('0-Dataset\training_2016_2017_test_2018_2019_comparing_old_model'));
+addpath(genpath('0-Dataset\training_2016_2017_test_2018_2019_comparing_old_model\Q_river_All'));
 addpath(genpath('..\..\Machine-Learning-Tools\1-Utility'));
 addpath(genpath('..\..\Machine-Learning-Tools\2-Machine-Learning-Function'));
-addpath(genpath('1_Trained-Models\training_2016_2017_test_2018_2019_comparing_old_model'));
+addpath(genpath('1_Trained-Models\training_2016_2017_test_2018_2019_comparing_old_model\Q_river_All'));
 
 %% Set import dataset settings
 filepath = "0-Dataset\CK_OBS_WITH_FEATURES.xlsx";
@@ -32,9 +32,9 @@ ck_test_dataset_2018 = ck_dataset(ck_dataset.Year == 2018, :);
 ck_test_dataset_2019 = ck_dataset(ck_dataset.Year == 2019, :);
 ck_test_dataset_2018_2019 = ck_dataset(ck_dataset.Year == 2018 | ck_dataset.Year == 2019, :);
 
-save('0-Dataset/training_2016_2017_test_2018_2019_comparing_old_model/CK_OLD_MODEL_PREDICTIONS.mat', 'ck_dataset');
-save('0-Dataset/training_2016_2017_test_2018_2019_comparing_old_model/Ck-Training-Dataset_2016_2017.mat','ck_training_dataset');
-save('0-Dataset/training_2016_2017_test_2018_2019_comparing_old_model/Ck-Test-Dataset_2018_2019.mat','ck_test_dataset_2018_2019');
+save('0-Dataset/training_2016_2017_test_2018_2019_comparing_old_model/Q_river_All/CK_OLD_MODEL_PREDICTIONS.mat', 'ck_dataset');
+save('0-Dataset/training_2016_2017_test_2018_2019_comparing_old_model/Q_river_All/Ck-Training-Dataset_2016_2017.mat','ck_training_dataset');
+save('0-Dataset/training_2016_2017_test_2018_2019_comparing_old_model/Q_river_All/Ck-Test-Dataset_2018_2019.mat','ck_test_dataset_2018_2019');
 
 %% Create table for k-fold cross validation results
 algorithm_names = {'random_forest', 'lsboost', 'neural_network', 'old_model' };
@@ -183,8 +183,8 @@ clc;
 close all;
 
 %% Save results
-writetable(results_training, '1-Trained-Models/training_2016_2017_test_2018_2019_comparing_old_model/Results-ck-calibration-model-k-5-old-configuration.xlsx', 'WriteRowNames',true);
-writetable(results_test_2018_dataset, '1-Trained-Models/training_2016_2017_test_2018_2019_comparing_old_model/Results-ck-test-2018-model-k-5-old-configuration.xlsx', 'WriteRowNames',true);
-writetable(results_test_2019_dataset, '1-Trained-Models/training_2016_2017_test_2018_2019_comparing_old_model/Results-ck-test-2019-model-k-5-old-configuration.xlsx', 'WriteRowNames',true);
-writetable(results_test_2018_2019_dataset, '1-Trained-Models/training_2016_2017_test_2018_2019_comparing_old_model/Results-ck-test-2018-2019-model-k-5-old-configuration.xlsx', 'WriteRowNames',true);
-save("1-Trained-Models\training_2016_2017_test_2018_2019_comparing_old_model\Ck-Trained-Tested-model-k-5-old-configuration.mat","result_trained_model");
+writetable(results_training, '1-Trained-Models/training_2016_2017_test_2018_2019_comparing_old_model/Q_river_All/Results-ck-calibration-model-k-5-old-configuration.xlsx', 'WriteRowNames',true);
+writetable(results_test_2018_dataset, '1-Trained-Models/training_2016_2017_test_2018_2019_comparing_old_model/Q_river_All/Results-ck-test-2018-model-k-5-old-configuration.xlsx', 'WriteRowNames',true);
+writetable(results_test_2019_dataset, '1-Trained-Models/training_2016_2017_test_2018_2019_comparing_old_model/Q_river_All/Results-ck-test-2019-model-k-5-old-configuration.xlsx', 'WriteRowNames',true);
+writetable(results_test_2018_2019_dataset, '1-Trained-Models/training_2016_2017_test_2018_2019_comparing_old_model/Q_river_All/Results-ck-test-2018-2019-model-k-5-old-configuration.xlsx', 'WriteRowNames',true);
+save("1-Trained-Models\training_2016_2017_test_2018_2019_comparing_old_model\Q_river_All\Ck-Trained-Tested-model-k-5-old-configuration.mat","result_trained_model");
