@@ -1,4 +1,4 @@
-function plot_boxplot(varargin)
+function plot_boxplot(subplot_title, varargin)
     n_features = width(varargin{1});
     n_col_subplot = n_features./2;
 
@@ -16,7 +16,7 @@ function plot_boxplot(varargin)
         features_dat_4 = table2array(varargin{4}(:,i));
         features = [features_dat_1; features_dat_2; features_dat_3; features_dat_4];
 
-        g1 = repmat({'Train-2016-2017'},(n_rows_dat_1),1);
+        g1 = repmat({'Train'},(n_rows_dat_1),1);
         g2 = repmat({'Test-2018'},n_rows_dat_2,1);
         g3 = repmat({'Test-2019'},n_rows_dat_3,1);
         g4 = repmat({'Test-2018-2019'},(n_rows_dat_4),1);        
@@ -28,5 +28,6 @@ function plot_boxplot(varargin)
         hAx.LineWidth=1;
         title(varargin{1}(:,i).Properties.VariableNames);
     end
+    sgtitle(subplot_title);
 end
 
