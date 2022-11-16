@@ -16,15 +16,15 @@ function plot_boxplot(subplot_title, varargin)
         features_dat_4 = table2array(varargin{4}(:,i));
         features = [features_dat_1; features_dat_2; features_dat_3; features_dat_4];
 
-        g1 = repmat({'Train'},(n_rows_dat_1),1);
+        g1 = repmat({'Training 2016-2017'},(n_rows_dat_1),1);
         g2 = repmat({'Test-2018'},n_rows_dat_2,1);
         g3 = repmat({'Test-2019'},n_rows_dat_3,1);
         g4 = repmat({'Test-2018-2019'},(n_rows_dat_4),1);        
         g = [g1; g2; g3; g4];
         
-        subplot(2,n_col_subplot,i);
+        subplot(n_col_subplot,2,i);
         hAx=gca;                  
-        boxplot(features, g );
+        boxplot(features, g);
         hAx.LineWidth=1;
         title(varargin{1}(:,i).Properties.VariableNames);
     end

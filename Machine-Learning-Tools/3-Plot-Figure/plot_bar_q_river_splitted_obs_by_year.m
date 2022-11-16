@@ -14,12 +14,12 @@ function plot_bar_q_river_splitted_obs_by_year(dataset)
     hAx=gca;
     bar(result);
     hAx.LineWidth=1;
-    ylim([0 500]);
+    ylim([0 550]);
     xlabel('Year');
     ylabel('Observations');
     xticks(linspace(1, numel(year_obs), numel(year_obs)));
     xticklabels(string(year_obs));
-    title('Number of observations by year for q-river-class');
+    title('Number of observations by year for Qriver class');
     legend('Low','Strong','Location','northeast');
     set(gca,'FontSize',12);
 end

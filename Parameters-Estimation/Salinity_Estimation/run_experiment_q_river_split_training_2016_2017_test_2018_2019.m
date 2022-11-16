@@ -28,11 +28,11 @@ varTypes = ["int16", "double", "double", "double", "double","double","double", "
 salinity_dataset = remove_missing_data_features(salinity_dataset);
 
 %% Plot bar with sample distribution with respect the year and the q_river_class
-plot_bar_q_river_splitted_obs_by_year(salinity_dataset);
-plot_bar_q_river_splitted_obs_by_training_test_year(salinity_dataset);
+%plot_bar_q_river_splitted_obs_by_year(salinity_dataset);
+%plot_bar_q_river_splitted_obs_by_training_test_year(salinity_dataset);
 
 %% Plot correlation matrix of all features and response in dataset
-plot_corrplot(removevars(salinity_dataset, {'Year', 'SalinityOldmodel', 'QriverClass'}));
+%plot_corrplot(removevars(salinity_dataset, {'Year', 'SalinityOldmodel', 'QriverClass'}));
 
 %% User select which class of q_river must be used into the experiment
 q_river_selected_class = 0;
@@ -68,9 +68,9 @@ salinity_test_dataset_2018 = salinity_dataset((salinity_dataset.Year == 2018) & 
 salinity_test_dataset_2019 = salinity_dataset((salinity_dataset.Year == 2019) & strcmp(string(salinity_dataset.QriverClass), q_river_selected_class),:);
 salinity_test_dataset_2018_2019 = salinity_dataset((salinity_dataset.Year == 2018 | salinity_dataset.Year == 2019) & strcmp(string(salinity_dataset.QriverClass), q_river_selected_class),:);
 
-save("0-Dataset/training_2016_2017_test_2018_2019_comparing_old_model/Q_river_Class_splitted/SALINITY_Q_RIVER_CLASS_SPLIT.mat", "salinity_dataset");
-save(strcat("0-Dataset/training_2016_2017_test_2018_2019_comparing_old_model/Q_river_Class_splitted/",q_river_selected_class,"/Salinity-Training-Dataset_2016_2017.mat"), "salinity_training_dataset");
-save(strcat("0-Dataset/training_2016_2017_test_2018_2019_comparing_old_model/Q_river_Class_splitted/",q_river_selected_class,"/Salinity-Test-Dataset_2018_2019.mat"), "salinity_test_dataset_2018_2019");
+%save("0-Dataset/training_2016_2017_test_2018_2019_comparing_old_model/Q_river_Class_splitted/SALINITY_Q_RIVER_CLASS_SPLIT.mat", "salinity_dataset");
+%save(strcat("0-Dataset/training_2016_2017_test_2018_2019_comparing_old_model/Q_river_Class_splitted/",q_river_selected_class,"/Salinity-Training-Dataset_2016_2017.mat"), "salinity_training_dataset");
+%save(strcat("0-Dataset/training_2016_2017_test_2018_2019_comparing_old_model/Q_river_Class_splitted/",q_river_selected_class,"/Salinity-Test-Dataset_2018_2019.mat"), "salinity_test_dataset_2018_2019");
 
 %% Plot boxplot
 plot_boxplot(strcat("Boxplot of features for ", q_river_selected_class, " Qriver class"),...
@@ -109,7 +109,7 @@ targetFeatureName = 'SalinityObs';
 
 %% Set maxObjectiveEvaluations as maximum number of objective functions to
 %  be evaluated in the optimization process
-max_objective_evaluations = 45;
+max_objective_evaluations = 30;
 
 %% Set k to be use in k-fold cross validation
 k = 5;
