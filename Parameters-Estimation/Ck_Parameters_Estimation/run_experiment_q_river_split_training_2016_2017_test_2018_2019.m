@@ -32,7 +32,7 @@ ck_dataset = remove_missing_data_features(ck_dataset);
 %plot_bar_q_river_splitted_obs_by_training_test_year(ck_dataset);
 
 %% Plot correlation matrix of all features and response in dataset
-plot_corrplot(removevars(ck_dataset, {'Year', 'CkOldmodel', 'QriverClass'}));
+plot_corrplot(removevars(ck_dataset, {'Year', 'CkOldmodel', 'QriverClass'}), "ck");
 
 %% User select which class of q_river must be used into the experiment
 q_river_selected_class = 0;
@@ -109,7 +109,7 @@ targetFeatureName = 'CkObs';
 
 %% Set maxObjectiveEvaluations as maximum number of objective functions to
 %  be evaluated in the optimization process
-max_objective_evaluations = 2;
+max_objective_evaluations = 30;
 
 %% Set k to be use in k-fold cross validation
 k = 5;
