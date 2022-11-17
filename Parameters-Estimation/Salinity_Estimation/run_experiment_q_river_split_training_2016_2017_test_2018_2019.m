@@ -68,9 +68,9 @@ salinity_test_dataset_2018 = salinity_dataset((salinity_dataset.Year == 2018) & 
 salinity_test_dataset_2019 = salinity_dataset((salinity_dataset.Year == 2019) & strcmp(string(salinity_dataset.QriverClass), q_river_selected_class),:);
 salinity_test_dataset_2018_2019 = salinity_dataset((salinity_dataset.Year == 2018 | salinity_dataset.Year == 2019) & strcmp(string(salinity_dataset.QriverClass), q_river_selected_class),:);
 
-%save("0-Dataset/training_2016_2017_test_2018_2019_comparing_old_model/Q_river_Class_splitted/SALINITY_Q_RIVER_CLASS_SPLIT.mat", "salinity_dataset");
-%save(strcat("0-Dataset/training_2016_2017_test_2018_2019_comparing_old_model/Q_river_Class_splitted/",q_river_selected_class,"/Salinity-Training-Dataset_2016_2017.mat"), "salinity_training_dataset");
-%save(strcat("0-Dataset/training_2016_2017_test_2018_2019_comparing_old_model/Q_river_Class_splitted/",q_river_selected_class,"/Salinity-Test-Dataset_2018_2019.mat"), "salinity_test_dataset_2018_2019");
+save("0-Dataset/training_2016_2017_test_2018_2019_comparing_old_model/Q_river_Class_splitted/SALINITY_Q_RIVER_CLASS_SPLIT.mat", "salinity_dataset");
+save(strcat("0-Dataset/training_2016_2017_test_2018_2019_comparing_old_model/Q_river_Class_splitted/",q_river_selected_class,"/Salinity-Training-Dataset_2016_2017.mat"), "salinity_training_dataset");
+save(strcat("0-Dataset/training_2016_2017_test_2018_2019_comparing_old_model/Q_river_Class_splitted/",q_river_selected_class,"/Salinity-Test-Dataset_2018_2019.mat"), "salinity_test_dataset_2018_2019");
 
 %% Plot boxplot
 plot_boxplot(strcat("Boxplot of features for ", q_river_selected_class, " Qriver class"),...
