@@ -44,7 +44,7 @@ training_table_results = array2table([salinity_dataset.SalinityObs((salinity_dat
     result_trained_model.neural_network.validation_results.validation_predictions ...
 ],"VariableNames",{'real_sal','old_model_pred', 'rf_pred', 'lsb_pred', 'nn_pred'});
 
-create_perfect_fit_residuals_plot(training_table_results, algorithm_names, response, "Training dataset 2016 - 2017");
+create_perfect_fit_residuals_plot(training_table_results, algorithm_names, response, strcat("Training dataset 2016 - 2017 with ",q_river_selected_class, " Qriver"));
 
 %% Test dataset
 test_table_results = array2table([salinity_dataset.SalinityObs((salinity_dataset.Year == 2018) & strcmp(string(salinity_dataset.QriverClass), q_river_selected_class))...
@@ -54,4 +54,4 @@ test_table_results = array2table([salinity_dataset.SalinityObs((salinity_dataset
     result_trained_model.neural_network.test_results.test_2018_dataset.test_predictions ...
 ],"VariableNames",{'real_sal', 'old_model_pred', 'rf_pred', 'lsb_pred', 'nn_pred'});
 
-create_perfect_fit_residuals_plot(test_table_results, algorithm_names, response, "Test dataset 2018");
+create_perfect_fit_residuals_plot(test_table_results, algorithm_names, response, strcat("Test 2018 with ",q_river_selected_class, " Qriver"));
