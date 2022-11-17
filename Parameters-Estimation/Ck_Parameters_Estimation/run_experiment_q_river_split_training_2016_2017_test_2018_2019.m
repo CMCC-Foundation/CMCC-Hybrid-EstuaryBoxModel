@@ -62,7 +62,7 @@ end
 fprintf(strcat("Running ck estimation experiment using ", q_river_selected_class," Q_river_class\n"));
 fprintf("---------------------------------------------------------------------------------\n");
 
-%% Split salinity dataset with q_river_class in training and test set
+%% Split ck dataset with q_river_class in training and test set
 ck_training_dataset = ck_dataset((ck_dataset.Year == 2016 | ck_dataset.Year == 2017) & strcmp(string(ck_dataset.QriverClass), q_river_selected_class),:);
 ck_test_dataset_2018 = ck_dataset((ck_dataset.Year == 2018) & strcmp(string(ck_dataset.QriverClass), q_river_selected_class),:);
 ck_test_dataset_2019 = ck_dataset((ck_dataset.Year == 2019) & strcmp(string(ck_dataset.QriverClass), q_river_selected_class),:);
@@ -226,4 +226,4 @@ writetable(results_training, strcat("1-Trained-Models/training_2016_2017_test_20
 writetable(results_test_2018_dataset, strcat("1-Trained-Models/training_2016_2017_test_2018_2019_comparing_old_model/Q_river_Class_splitted/",q_river_selected_class,"/Results-ck-test-2018-model.xlsx"), 'WriteRowNames',true);
 writetable(results_test_2019_dataset, strcat("1-Trained-Models/training_2016_2017_test_2018_2019_comparing_old_model/Q_river_Class_splitted/",q_river_selected_class,"/Results-ck-test-2019-model.xlsx"), 'WriteRowNames',true);
 writetable(results_test_2018_2019_dataset, strcat("1-Trained-Models/training_2016_2017_test_2018_2019_comparing_old_model/Q_river_Class_splitted/",q_river_selected_class,"/Results-ck-test-2018-2019-model.xlsx"), 'WriteRowNames',true);
-save(strcat("1-Trained-Models\training_2016_2017_test_2018_2019_comparing_old_model\Q_river_Class_splitted\",q_river_selected_class,"\Salinity-Trained-Tested-model.mat"),"result_trained_model");
+save(strcat("1-Trained-Models\training_2016_2017_test_2018_2019_comparing_old_model\Q_river_Class_splitted\",q_river_selected_class,"\Ck-Trained-Tested-model.mat"),"result_trained_model");
