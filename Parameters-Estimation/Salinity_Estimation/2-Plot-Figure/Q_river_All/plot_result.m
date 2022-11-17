@@ -1,9 +1,9 @@
-addpath(genpath('..\0-Dataset\training_test_2016_2019'));
-addpath(genpath('..\1_Trained-Models\training_test_2016_2019'));
-addpath(genpath('..\..\..\Machine-Learning-Tools\3-Plot-Figure'));
-load("..\0-Dataset\training_test_2016_2019\Salinity-Training-Dataset.mat");
-load("..\0-Dataset\training_test_2016_2019\Salinity-Test-Dataset.mat");
-load("..\1-Trained-Models\training_test_2016_2019\Salinity-Trained-Tested-model-k-10.mat");
+addpath(genpath('..\..\0-Dataset\training_test_2016_2019'));
+addpath(genpath('..\..\1_Trained-Models\training_test_2016_2019'));
+addpath(genpath('..\..\..\..\Machine-Learning-Tools\3-Plot-Figure'));
+load("..\..\0-Dataset\training_test_2016_2019\Salinity-Training-Dataset.mat");
+load("..\..\0-Dataset\training_test_2016_2019\Salinity-Test-Dataset.mat");
+load("..\..\1-Trained-Models\training_test_2016_2019\Salinity-Trained-Tested-model-k-10.mat");
 
 algorithm_names = {'random forest', 'lsboost', 'neural network'};
 response = 'Salinity_Obs';
