@@ -28,8 +28,8 @@ varTypes = ["int16", "double", "double","double","double", "double", "categorica
 ck_dataset = remove_missing_data_features(ck_dataset);
 
 %% Plot bar with sample distribution with respect the year and the q_river_class
-%plot_bar_q_river_splitted_obs_by_year(ck_dataset);
-%plot_bar_q_river_splitted_obs_by_training_test_year(ck_dataset);
+plot_bar_q_river_splitted_obs_by_year(ck_dataset);
+plot_bar_q_river_splitted_obs_by_training_test_year(ck_dataset);
 
 %% Plot correlation matrix of all features and response in dataset
 plot_corrplot(removevars(ck_dataset, {'Year', 'CkOldmodel', 'QriverClass'}), "ck");
