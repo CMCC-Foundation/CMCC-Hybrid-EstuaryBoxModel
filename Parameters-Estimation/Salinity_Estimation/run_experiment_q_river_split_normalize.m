@@ -9,10 +9,11 @@
 
 %% Add to path subdirectory
 addpath(genpath('0-Dataset\training_2016_2017_test_2018_2019_comparing_old_model\Q_river_Class_splitted'));
+addpath(genpath('0-Dataset\training_2016_2017_test_2018_2019_comparing_old_model\Q_river_Class_splitted_Norm'));
 addpath(genpath('..\..\Machine-Learning-Tools\1-Utility'));
 addpath(genpath('..\..\Machine-Learning-Tools\2-Machine-Learning-Function'));
 addpath(genpath('..\..\Machine-Learning-Tools\3-Plot-Figure'));
-addpath(genpath('1_Trained-Models\training_2016_2017_test_2018_2019_comparing_old_model\Q_river_Class_splitted'));
+addpath(genpath('1_Trained-Models\training_2016_2017_test_2018_2019_comparing_old_model\Q_river_Class_splitted_Norm'));
 
 %% Set import dataset settings
 filepath = "0-Dataset\training_2016_2017_test_2018_2019_comparing_old_model\Q_river_Class_splitted\SALINITY_Q_RIVER_CLASS_SPLIT.xlsx";
@@ -28,8 +29,8 @@ varTypes = ["int16", "double", "double", "double", "double","double","double", "
 salinity_dataset = remove_missing_data_features(salinity_dataset);
 
 %% Plot bar with sample distribution with respect the year and the q_river_class
-%plot_bar_q_river_splitted_obs_by_year(salinity_dataset);
-%plot_bar_q_river_splitted_obs_by_training_test_year(salinity_dataset);
+plot_bar_q_river_splitted_obs_by_year(salinity_dataset);
+plot_bar_q_river_splitted_obs_by_training_test_year(salinity_dataset);
 
 %% Plot correlation matrix of all features and response in dataset
 plot_corrplot(removevars(salinity_dataset, {'Year', 'SalinityOldmodel', 'QriverClass'}),'salinity');
@@ -62,15 +63,21 @@ end
 fprintf(strcat("Running salinity estimation experiment using ", q_river_selected_class," Q_river_class\n"));
 fprintf("---------------------------------------------------------------------------------\n");
 
+%% Normalize Qriver features by year
+salinity_dataset.Qriver(salinity_dataset.Year==2016) = normalize(salinity_dataset.Qriver(salinity_dataset.Year==2016));
+salinity_dataset.Qriver(salinity_dataset.Year==2017) = normalize(salinity_dataset.Qriver(salinity_dataset.Year==2017));
+salinity_dataset.Qriver(salinity_dataset.Year==2018) = normalize(salinity_dataset.Qriver(salinity_dataset.Year==2018));
+salinity_dataset.Qriver(salinity_dataset.Year==2019) = normalize(salinity_dataset.Qriver(salinity_dataset.Year==2019));
+
 %% Split salinity dataset with q_river_class in training and test set
 salinity_training_dataset = salinity_dataset((salinity_dataset.Year == 2016 | salinity_dataset.Year == 2017) & strcmp(string(salinity_dataset.QriverClass), q_river_selected_class),:);
 salinity_test_dataset_2018 = salinity_dataset((salinity_dataset.Year == 2018) & strcmp(string(salinity_dataset.QriverClass), q_river_selected_class),:);
 salinity_test_dataset_2019 = salinity_dataset((salinity_dataset.Year == 2019) & strcmp(string(salinity_dataset.QriverClass), q_river_selected_class),:);
 salinity_test_dataset_2018_2019 = salinity_dataset((salinity_dataset.Year == 2018 | salinity_dataset.Year == 2019) & strcmp(string(salinity_dataset.QriverClass), q_river_selected_class),:);
 
-save("0-Dataset/training_2016_2017_test_2018_2019_comparing_old_model/Q_river_Class_splitted_Norm/SALINITY_Q_RIVER_CLASS_SPLIT.mat", "salinity_dataset");
-save(strcat("0-Dataset/training_2016_2017_test_2018_2019_comparing_old_model/Q_river_Class_splitted/",q_river_selected_class,"/Salinity-Training-Dataset_2016_2017.mat"), "salinity_training_dataset");
-save(strcat("0-Dataset/training_2016_2017_test_2018_2019_comparing_old_model/Q_river_Class_splitted/",q_river_selected_class,"/Salinity-Test-Dataset_2018_2019.mat"), "salinity_test_dataset_2018_2019");
+save("0-Dataset/training_2016_2017_test_2018_2019_comparing_old_model/Q_river_Class_splitted_Norm/SALINITY_Q_RIVER_CLASS_SPLIT_NORM.mat", "salinity_dataset");
+save(strcat("0-Dataset/training_2016_2017_test_2018_2019_comparing_old_model/Q_river_Class_splitted_Norm/",q_river_selected_class,"/Salinity-Training-Dataset_2016_2017_Norm.mat"), "salinity_training_dataset");
+save(strcat("0-Dataset/training_2016_2017_test_2018_2019_comparing_old_model/Q_river_Class_splitted_Norm/",q_river_selected_class,"/Salinity-Test-Dataset_2018_2019_Norm.mat"), "salinity_test_dataset_2018_2019");
 
 %% Plot boxplot
 plot_boxplot(strcat("Boxplot of features for ", q_river_selected_class, " Qriver class"),...
@@ -222,8 +229,8 @@ results_test_2019_dataset = compute_metrics(salinity_test_dataset_2019(:, target
 results_test_2018_2019_dataset = compute_metrics(salinity_test_dataset_2018_2019(:, targetFeatureName), salinity_test_dataset_2018_2019(:,"SalinityOldmodel"), algorithm_names(4), results_test_2018_2019_dataset);
 
 %% Save results
-writetable(results_training, strcat("1-Trained-Models/training_2016_2017_test_2018_2019_comparing_old_model/Q_river_Class_splitted/", q_river_selected_class,"/Results-salinity-training.xlsx"), 'WriteRowNames',true);
-writetable(results_test_2018_dataset, strcat("1-Trained-Models/training_2016_2017_test_2018_2019_comparing_old_model/Q_river_Class_splitted/",q_river_selected_class,"/Results-salinity-test-2018-model.xlsx"), 'WriteRowNames',true);
-writetable(results_test_2019_dataset, strcat("1-Trained-Models/training_2016_2017_test_2018_2019_comparing_old_model/Q_river_Class_splitted/",q_river_selected_class,"/Results-salinity-test-2019-model.xlsx"), 'WriteRowNames',true);
-writetable(results_test_2018_2019_dataset, strcat("1-Trained-Models/training_2016_2017_test_2018_2019_comparing_old_model/Q_river_Class_splitted/",q_river_selected_class,"/Results-salinity-test-2018-2019-model.xlsx"), 'WriteRowNames',true);
-save(strcat("1-Trained-Models\training_2016_2017_test_2018_2019_comparing_old_model\Q_river_Class_splitted\",q_river_selected_class,"\Salinity-Trained-Tested-model.mat"),"result_trained_model");
+writetable(results_training, strcat("1-Trained-Models/training_2016_2017_test_2018_2019_comparing_old_model/Q_river_Class_splitted_Norm/", q_river_selected_class,"/Results-salinity-training-norm.xlsx"), 'WriteRowNames',true);
+writetable(results_test_2018_dataset, strcat("1-Trained-Models/training_2016_2017_test_2018_2019_comparing_old_model/Q_river_Class_splitted_Norm/",q_river_selected_class,"/Results-salinity-test-2018-model-norm.xlsx"), 'WriteRowNames',true);
+writetable(results_test_2019_dataset, strcat("1-Trained-Models/training_2016_2017_test_2018_2019_comparing_old_model/Q_river_Class_splitted_Norm/",q_river_selected_class,"/Results-salinity-test-2019-model-norm.xlsx"), 'WriteRowNames',true);
+writetable(results_test_2018_2019_dataset, strcat("1-Trained-Models/training_2016_2017_test_2018_2019_comparing_old_model/Q_river_Class_splitted_Norm/",q_river_selected_class,"/Results-salinity-test-2018-2019-model-norm.xlsx"), 'WriteRowNames',true);
+save(strcat("1-Trained-Models\training_2016_2017_test_2018_2019_comparing_old_model\Q_river_Class_splitted_Norm\",q_river_selected_class,"\Salinity-Trained-Tested-model-norm.mat"),"result_trained_model");
