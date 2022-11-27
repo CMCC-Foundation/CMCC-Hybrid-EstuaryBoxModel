@@ -75,9 +75,9 @@ ck_test_dataset_2018 = ck_dataset((ck_dataset.Year == 2018) & strcmp(string(ck_d
 ck_test_dataset_2019 = ck_dataset((ck_dataset.Year == 2019) & strcmp(string(ck_dataset.QriverClass), q_river_selected_class),:);
 ck_test_dataset_2018_2019 = ck_dataset((ck_dataset.Year == 2018 | ck_dataset.Year == 2019) & strcmp(string(ck_dataset.QriverClass), q_river_selected_class),:);
 
-save("0-Dataset/training_2016_2017_test_2018_2019_comparing_old_model/Q_river_Class_splitted/CK_Q_RIVER_CLASS_SPLIT_NORM.mat", "ck_dataset");
-save(strcat("0-Dataset/training_2016_2017_test_2018_2019_comparing_old_model/Q_river_Class_splitted/",q_river_selected_class,"/Ck-Training-Dataset_2016_2017_Norm.mat"), "ck_training_dataset");
-save(strcat("0-Dataset/training_2016_2017_test_2018_2019_comparing_old_model/Q_river_Class_splitted/",q_river_selected_class,"/Ck-Test-Dataset_2018_2019_Norm.mat"), "ck_test_dataset_2018_2019");
+save("0-Dataset/training_2016_2017_test_2018_2019_comparing_old_model/Q_river_Class_splitted_Norm/CK_Q_RIVER_CLASS_SPLIT_NORM.mat", "ck_dataset");
+save(strcat("0-Dataset/training_2016_2017_test_2018_2019_comparing_old_model/Q_river_Class_splitted_Norm/",q_river_selected_class,"/Ck-Training-Dataset_2016_2017_Norm.mat"), "ck_training_dataset");
+save(strcat("0-Dataset/training_2016_2017_test_2018_2019_comparing_old_model/Q_river_Class_splitted_Norm/",q_river_selected_class,"/Ck-Test-Dataset_2018_2019_Norm.mat"), "ck_test_dataset_2018_2019");
 
 %% Plot boxplot
 plot_boxplot(strcat("Boxplot of features for ", q_river_selected_class, " Qriver class"),...
