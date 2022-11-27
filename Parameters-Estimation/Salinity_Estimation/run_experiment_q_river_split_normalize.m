@@ -29,8 +29,8 @@ varTypes = ["int16", "double", "double", "double", "double","double","double", "
 salinity_dataset = remove_missing_data_features(salinity_dataset);
 
 %% Plot bar with sample distribution with respect the year and the q_river_class
-plot_bar_q_river_splitted_obs_by_year(salinity_dataset);
-plot_bar_q_river_splitted_obs_by_training_test_year(salinity_dataset);
+%plot_bar_q_river_splitted_obs_by_year(salinity_dataset);
+%plot_bar_q_river_splitted_obs_by_training_test_year(salinity_dataset);
 
 %% Plot correlation matrix of all features and response in dataset
 plot_corrplot(removevars(salinity_dataset, {'Year', 'SalinityOldmodel', 'QriverClass'}),'salinity');
