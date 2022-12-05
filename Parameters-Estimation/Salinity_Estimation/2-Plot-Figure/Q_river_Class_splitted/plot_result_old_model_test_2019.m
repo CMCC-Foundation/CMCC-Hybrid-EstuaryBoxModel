@@ -45,4 +45,4 @@ test_table_results = array2table([salinity_dataset.SalinityObs((salinity_dataset
     result_trained_model.neural_network.test_results.test_2019_dataset.test_predictions ...
 ],"VariableNames",{'real_sal', 'old_model_pred', 'rf_pred', 'lsb_pred', 'nn_pred'});
 
-create_perfect_fit_residuals_plot(test_table_results, algorithm_names, response, strcat("Test 2019 with ",q_river_selected_class, " Qriver"));
+create_perfect_fit_residuals_plot(test_table_results, algorithm_names, response, strcat("Test 2019 with ",q_river_selected_class, " Qriver"),false,0);

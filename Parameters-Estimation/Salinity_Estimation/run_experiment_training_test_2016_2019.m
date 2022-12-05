@@ -28,8 +28,8 @@ salinity_dataset = remove_missing_data_features(salinity_dataset);
 %% Split original dataset in training and test set
 [salinity_training_dataset, salinity_test_dataset] = create_training_test_dataset(salinity_dataset, 0.2);
 
-save('0-Dataset/training_test_2016_2019/Salinity-Training-Dataset.mat','salinity_training_dataset');
-save('0-Dataset/training_test_2016_2019/Salinity-Test-Dataset.mat','salinity_test_dataset');
+%save('0-Dataset/training_test_2016_2019/Salinity-Training-Dataset.mat','salinity_training_dataset');
+%save('0-Dataset/training_test_2016_2019/Salinity-Test-Dataset.mat','salinity_test_dataset');
 %writetable(salinity_training_dataset, '0-Dataset/training_test_2016_2019/Salinity-Training-Dataset.xlsx', 'WriteRowNames',true);
 %writetable(salinity_test_dataset, '0-Dataset/training_test_2016_2019/Salinity-Test-Dataset.xlsx', 'WriteRowNames',true);
 
@@ -119,4 +119,4 @@ result_trained_model.neural_network.test_results.metrics = results_test("neural_
 
 %writetable(results_training, '1-Trained-Models/training_test_2016_2019/Results-salinity-training-model.xlsx', 'WriteRowNames',true);
 %writetable(results_test, '1-Trained-Models/training_test_2016_2019/Results-salinity-test-model.xlsx', 'WriteRowNames',true);
-save("1-Trained-Models\training_test_2016_2019\Salinity-Trained-Tested-model.mat","result_trained_model");
+%save("1-Trained-Models\training_test_2016_2019\Salinity-Trained-Tested-model.mat","result_trained_model");

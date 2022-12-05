@@ -13,5 +13,5 @@ training_table_results = array2table([lx_dataset.Lx_OBS ...
     result_trained_model.lsboost.validation_results.validation_predictions...
 ],"VariableNames",{'real_lx', 'rf_pred', 'lsb_pred'});
 
-create_perfect_fit_residuals_plot(training_table_results, algorithm_names, response, "Training dataset");
+create_perfect_fit_residuals_plot(training_table_results, algorithm_names, response, "Training dataset",false,0);
 compare_real_pred_obs(training_table_results, algorithm_names, "Training dataset", "Km");

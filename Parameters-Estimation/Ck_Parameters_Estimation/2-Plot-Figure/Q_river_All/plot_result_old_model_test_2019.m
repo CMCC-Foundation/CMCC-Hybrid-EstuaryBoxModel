@@ -15,5 +15,5 @@ test_table_results = array2table([ck_dataset.CK_Obs(ck_dataset.Year == 2019)...
     result_trained_model.neural_network.test_results.test_2019_dataset.test_predictions ...
 ],"VariableNames",{'real_ck', 'old_model_pred', 'rf_pred', 'lsb_pred', 'nn_pred'});
 
-create_perfect_fit_residuals_plot(test_table_results, algorithm_names, response, "Test dataset 2019");
+create_perfect_fit_residuals_plot(test_table_results, algorithm_names, response, "Test dataset 2019", false,0);
 compare_real_pred_obs(test_table_results, algorithm_names, "Test dataset 2019", "ck");

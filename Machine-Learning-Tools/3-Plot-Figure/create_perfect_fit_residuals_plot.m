@@ -1,10 +1,10 @@
-function [] = create_perfect_fit_residuals_plot(resumePredictionsTable, algorithm_names, response, titleSubplot)
+function [] = create_perfect_fit_residuals_plot(resumePredictionsTable, algorithm_names, response, titleSubplot, addBoundPerfectFit, percentageBoundPerfectFit)
     f = figure;
     f.Position = [0 0 1920 1000];
     
     for i = 1:numel(algorithm_names)
         subplot(2,numel(algorithm_names),i);
-        plotPerfectFit(resumePredictionsTable(:,1), resumePredictionsTable(:,i+1), algorithm_names(i));
+        plotPerfectFit(resumePredictionsTable(:,1), resumePredictionsTable(:,i+1), algorithm_names(i), addBoundPerfectFit, percentageBoundPerfectFit);
     
         subplot(2,numel(algorithm_names),i+numel(algorithm_names));
         resumeTable = createResumeTable(resumePredictionsTable(:,1), resumePredictionsTable(:,i+1), response);
@@ -13,7 +13,7 @@ function [] = create_perfect_fit_residuals_plot(resumePredictionsTable, algorith
     sgtitle(titleSubplot);
 end
 
-function [] = plotPerfectFit(obs, pred, modelName)
+function [] = plotPerfectFit(obs, pred, modelName, addBound, percentageBound)
     if (istable(obs))
         obs = table2array(obs);
     end
@@ -22,18 +22,27 @@ function [] = plotPerfectFit(obs, pred, modelName)
         pred = table2array(pred);
     end
     hAx=gca;                  
+    legendName = {'Observations','Perfect prediction'};
     plot(obs,pred, '.','MarkerSize',18, ...
         'MarkerFaceColor',[0.00,0.45,0.74],'MarkerEdgeColor','auto');
     hold on;
     xy = linspace(0, 30, 30);
     plot(xy,xy,'k-','LineWidth',1.3);
+    if(addBound)
+        xyUpperBound = xy + percentageBound*xy/100;
+        xyLowerBound = xy - percentageBound*xy/100;
+        plot(xy,xyUpperBound, 'r--', 'LineWidth',1.3);
+        plot(xy,xyLowerBound, 'r--', 'LineWidth',1.3);
+        legendName = {"Observations","Perfect prediction", ...
+            strcat(string(percentageBound), "% of deviation")};
+    end
     hAx.LineWidth=1;
     xlim([0 30]);
     ylim([0 30]);
     xlabel('True response');
     ylabel('Predicted response');
     title(modelName);
-    legend('Observations','Perfect prediction','Location','northwest');
+    legend(legendName,'Location','northwest');
     set(gca,'FontSize',12);
     grid on;
     hold off;
