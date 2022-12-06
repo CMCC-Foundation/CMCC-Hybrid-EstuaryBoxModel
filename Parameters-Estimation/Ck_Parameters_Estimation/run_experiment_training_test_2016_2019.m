@@ -111,7 +111,7 @@ result_trained_model.lsboost.test_results = test_results;
 result_trained_model.lsboost.test_results.test_predictions = result_trained_model.lsboost.model.predictFcn(removevars(ck_test_dataset, {'Year','CkOldModel'}));
 results_test= compute_metrics(ck_test_dataset(:, targetFeatureName), result_trained_model.lsboost.test_results.test_predictions, algorithm_names(2), results_test);
 result_trained_model.lsboost.test_results.metrics = results_test("lsboost",:);
-pwbTable = create_pwb_table(ck_test_dataset(:, targetFeatureName), result_trained_model.lsboodt.test_results.test_predictions,pwbTable,algorithm_names(2),pwbX);
+pwbTable = create_pwb_table(ck_test_dataset(:, targetFeatureName), result_trained_model.lsboost.test_results.test_predictions,pwbTable,algorithm_names(2),pwbX);
 
 %% Training neural network model
 fprintf("\n===================================================================\n");
@@ -136,7 +136,7 @@ disp(results_training);
 disp(results_test);
 disp(pwbTable);
 
-%writetable(results_training, '1-Trained-Models/training_test_2016_2019/Results-ck-training-model.xlsx', 'WriteRowNames',true);
-%writetable(results_test, '1-Trained-Models/training_test_2016_2019/Results-ck-test-model.xlsx', 'WriteRowNames',true);
-%writetable(pwbTable, "1-Trained-Models/training_test_2016_2019/pwbTable.xlsx", "WriteRowNames", true);
-%save("1-Trained-Models\training_test_2016_2019\Ck-Trained-Tested-model.mat","result_trained_model");
+writetable(results_training, '1-Trained-Models/training_test_2016_2019/Results-ck-training-model.xlsx', 'WriteRowNames',true);
+writetable(results_test, '1-Trained-Models/training_test_2016_2019/Results-ck-test-model.xlsx', 'WriteRowNames',true);
+writetable(pwbTable, "1-Trained-Models/training_test_2016_2019/pwbTable.xlsx", "WriteRowNames", true);
+save("1-Trained-Models\training_test_2016_2019\Ck-Trained-Tested-model.mat","result_trained_model");
