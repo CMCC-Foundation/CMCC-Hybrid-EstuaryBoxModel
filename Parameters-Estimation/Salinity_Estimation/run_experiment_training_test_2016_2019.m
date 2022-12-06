@@ -39,7 +39,13 @@ plot_boxplot_training_test("Boxplot of features for salinity estimation",...
      removevars(salinity_test_dataset,{'Year'}));
 
 %% Create table for k-fold cross validation results
-algorithm_names = {'random_forest', 'lsboost', 'neural_network' };
+algorithm_names = {'random_forest', 'lsboost', 'neural_network'};
+pwbX = [1 5 10 20 30];
+pwbXRowNames = string();
+
+for i = 1:numel(pwbX)
+    pwbXRowNames(i) = strcat('PWB', num2str(pwbX(i)));
+end
 
 results_training = table('Size', [3 8], ...
     'VariableTypes', {'double','double', 'double','double', 'double', 'double', 'double', 'double'}, ...
@@ -50,6 +56,11 @@ results_test = table('Size', [3 8], ...
     'VariableTypes', {'double','double','double','double', 'double', 'double', 'double', 'double'}, ...
     'VariableNames', {'RMSE','NRMSE', 'MAE','RSE', 'RRSE','RAE', 'R2', 'Corr Coeff'},...
     'RowNames', algorithm_names);
+
+pwbTable = table('Size',[numel(pwbX) numel(algorithm_names)],...
+    'VariableTypes', repmat({'double'}, 1, numel(algorithm_names)), ...
+    'VariableNames', algorithm_names,...
+    'RowNames', pwbXRowNames);
 
 result_trained_model = struct();
 
@@ -80,6 +91,7 @@ result_trained_model.random_forest.test_results = test_results;
 result_trained_model.random_forest.test_results.test_predictions = result_trained_model.random_forest.model.predictFcn(removevars(salinity_test_dataset, {'Year'}));
 results_test= compute_metrics(salinity_test_dataset(:, targetFeatureName), result_trained_model.random_forest.test_results.test_predictions, algorithm_names(1), results_test);
 result_trained_model.random_forest.test_results.metrics = results_test("random_forest",:);
+pwbTable = create_pwb_table(ck_test_dataset(:, targetFeatureName), result_trained_model.random_forest.test_results.test_predictions,pwbTable,algorithm_names(1),pwbX);
 
 %% Training lsboost model
 fprintf("\n===================================================================\n");
@@ -98,7 +110,7 @@ result_trained_model.lsboost.test_results = test_results;
 result_trained_model.lsboost.test_results.test_predictions = result_trained_model.lsboost.model.predictFcn(removevars(salinity_test_dataset, {'Year'}));
 results_test= compute_metrics(salinity_test_dataset(:, targetFeatureName), result_trained_model.lsboost.test_results.test_predictions, algorithm_names(2), results_test);
 result_trained_model.lsboost.test_results.metrics = results_test("lsboost",:);
-
+pwbTable = create_pwb_table(ck_test_dataset(:, targetFeatureName), result_trained_model.lsboost.test_results.test_predictions,pwbTable,algorithm_names(2),pwbX);
 
 %% Training neural network model
 fprintf("\n===================================================================\n");
@@ -116,7 +128,14 @@ result_trained_model.neural_network.test_results = test_results;
 result_trained_model.neural_network.test_results.test_predictions = result_trained_model.neural_network.model.predictFcn(removevars(salinity_test_dataset, {'Year'}));
 results_test= compute_metrics(salinity_test_dataset(:, targetFeatureName), result_trained_model.neural_network.test_results.test_predictions, algorithm_names(3), results_test);
 result_trained_model.neural_network.test_results.metrics = results_test("neural_network",:);
+pwbTable = create_pwb_table(ck_test_dataset(:, targetFeatureName), result_trained_model.neural_network.test_results.test_predictions,pwbTable,algorithm_names(3),pwbX);
+
+clc;
+disp(results_training);
+disp(results_test);
+disp(pwbTable);
 
 %writetable(results_training, '1-Trained-Models/training_test_2016_2019/Results-salinity-training-model.xlsx', 'WriteRowNames',true);
 %writetable(results_test, '1-Trained-Models/training_test_2016_2019/Results-salinity-test-model.xlsx', 'WriteRowNames',true);
+%writetable(pwbTable, "1-Trained-Models/training_test_2016_2019/pwbTable.xlsx", "WriteRowNames", true);
 %save("1-Trained-Models\training_test_2016_2019\Salinity-Trained-Tested-model.mat","result_trained_model");
