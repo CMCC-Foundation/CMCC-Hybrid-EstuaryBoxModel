@@ -16,7 +16,7 @@ function plot_boxplot_training_test(subplot_title, varargin)
         g2 = repmat({'Test dataset'},n_rows_dat_2,1);       
         g = [g1; g2];
         
-        subplot(n_col_subplot,2,i);
+        subplot(round(n_col_subplot),2,i);
         hAx=gca;                  
         boxplot(features, g);
         hAx.LineWidth=1;

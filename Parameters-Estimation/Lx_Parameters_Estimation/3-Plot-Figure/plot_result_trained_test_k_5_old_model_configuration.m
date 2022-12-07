@@ -14,8 +14,8 @@ training_table_results = array2table([lx_dataset.Lx_OBS(lx_dataset.Dataset_Type 
     result_trained_model.lsboost.validation_results.validation_predictions...
 ],"VariableNames",{'real_lx','old_model_pred', 'rf_pred', 'lsb_pred'});
 
-create_perfect_fit_residuals_plot(training_table_results, algorithm_names, response, "Training dataset",false,0);
-compare_real_pred_obs(training_table_results, algorithm_names, "Training dataset", "Km");
+create_perfect_fit_residuals_plot(training_table_results, algorithm_names, response, "Training dataset",true,30);
+%compare_real_pred_obs(training_table_results, algorithm_names, "Training dataset", "Km");
 
 %% Test dataset
 test_table_results = array2table([lx_dataset.Lx_OBS(lx_dataset.Dataset_Type == 'VALIDATION RANGE') ...
@@ -24,5 +24,5 @@ test_table_results = array2table([lx_dataset.Lx_OBS(lx_dataset.Dataset_Type == '
     result_trained_model.lsboost.test_results.test_predictions...
 ],"VariableNames",{'real_lx', 'old_model_pred', 'rf_pred', 'lsb_pred'});
 
-create_perfect_fit_residuals_plot(test_table_results, algorithm_names, response, "Test dataset",false,0);
-compare_real_pred_obs(test_table_results, algorithm_names, "Test dataset", "Km");
+create_perfect_fit_residuals_plot(test_table_results, algorithm_names, response, "Test dataset",true,30);
+%compare_real_pred_obs(test_table_results, algorithm_names, "Test dataset", "Km");

@@ -18,7 +18,7 @@ nVars = 7;
 dataRange = "A2:G1462";
 sheetName = "Ck_Old_Model";
 varNames = ["Year","Qriver", "Qtide", "Socean", "CkObs", "CkOldModel"]; 
-varTypes = ["int16", "double", "double", "double", "double","double"];
+varTypes = ["int16","double", "double", "double", "double","double"];
 
 [ck_dataset] = import_dataset(filepath, nVars, dataRange, sheetName, varNames, varTypes);
 
@@ -80,14 +80,14 @@ fprintf(strcat("Training model using ", algorithm_names(1), " with k=", string(k
 fprintf("===================================================================\n");
 
 % save training results and performance
-result_trained_model.random_forest = random_forest_function(removevars(ck_training_dataset, {'Year', 'CkOldModel'}),targetFeatureName,max_objective_evaluations, k);
+result_trained_model.random_forest = random_forest_function(removevars(ck_training_dataset, {'Year','CkOldModel'}),targetFeatureName,max_objective_evaluations, k);
 results_training = compute_metrics(ck_training_dataset(:, targetFeatureName), result_trained_model.random_forest.validation_results.validation_predictions, algorithm_names(1), results_training);
 result_trained_model.random_forest.validation_results.metrics = results_training("random_forest",:);
 
 % save test results
 test_results = struct();
 result_trained_model.random_forest.test_results = test_results;
-result_trained_model.random_forest.test_results.test_predictions = result_trained_model.random_forest.model.predictFcn(removevars(ck_test_dataset, {'Year', 'CkOldModel'}));
+result_trained_model.random_forest.test_results.test_predictions = result_trained_model.random_forest.model.predictFcn(removevars(ck_test_dataset, {'Year','CkOldModel'}));
 results_test= compute_metrics(ck_test_dataset(:, targetFeatureName), result_trained_model.random_forest.test_results.test_predictions, algorithm_names(1), results_test);
 result_trained_model.random_forest.test_results.metrics = results_test("random_forest",:);
 pwbTable = create_pwb_table(ck_test_dataset(:, targetFeatureName), result_trained_model.random_forest.test_results.test_predictions,pwbTable,algorithm_names(1),pwbX);
@@ -100,7 +100,7 @@ fprintf(strcat("Training model using ", algorithm_names(2), " with k=", string(k
 fprintf("===================================================================\n");
 
 % save training results and performance
-result_trained_model.lsboost = lsboost_function(removevars(ck_training_dataset, {'Year', 'CkOldModel'}),targetFeatureName,max_objective_evaluations, k);
+result_trained_model.lsboost = lsboost_function(removevars(ck_training_dataset, {'Year','CkOldModel'}),targetFeatureName,max_objective_evaluations, k);
 results_training = compute_metrics(ck_training_dataset(:, targetFeatureName), result_trained_model.lsboost.validation_results.validation_predictions, algorithm_names(2), results_training);
 result_trained_model.lsboost.validation_results.metrics = results_training("lsboost",:);
 plot_importance(result_trained_model.lsboost.feature_importance, "Features importance for ck estimation with Lsboost");
@@ -119,14 +119,14 @@ fprintf(strcat("Training model using ", algorithm_names(3), " with k=", string(k
 fprintf("===================================================================\n");
 
 % save training results and performance
-result_trained_model.neural_network = neural_network_function(removevars(ck_training_dataset, {'Year', 'CkOldModel'}),targetFeatureName,1,3, 10, 100,max_objective_evaluations, k);
+result_trained_model.neural_network = neural_network_function(removevars(ck_training_dataset, {'Year','CkOldModel'}),targetFeatureName,1,3, 10, 100,max_objective_evaluations, k);
 results_training = compute_metrics(ck_training_dataset(:, targetFeatureName), result_trained_model.neural_network.validation_results.validation_predictions, algorithm_names(3), results_training);
 result_trained_model.neural_network.validation_results.metrics = results_training("neural_network",:);
 
 % save test result
 test_results = struct();
 result_trained_model.neural_network.test_results = test_results;
-result_trained_model.neural_network.test_results.test_predictions = result_trained_model.neural_network.model.predictFcn(removevars(ck_test_dataset, {'Year', 'CkOldModel'}));
+result_trained_model.neural_network.test_results.test_predictions = result_trained_model.neural_network.model.predictFcn(removevars(ck_test_dataset, {'Year','CkOldModel'}));
 results_test= compute_metrics(ck_test_dataset(:, targetFeatureName), result_trained_model.neural_network.test_results.test_predictions, algorithm_names(3), results_test);
 result_trained_model.neural_network.test_results.metrics = results_test("neural_network",:);
 pwbTable = create_pwb_table(ck_test_dataset(:, targetFeatureName), result_trained_model.neural_network.test_results.test_predictions,pwbTable,algorithm_names(3),pwbX);
