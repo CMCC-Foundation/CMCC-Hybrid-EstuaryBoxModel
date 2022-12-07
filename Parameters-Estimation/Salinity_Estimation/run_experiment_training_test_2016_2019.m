@@ -14,7 +14,7 @@ addpath(genpath('1_Trained-Models\training_test_2016_2019'));
 
 %% Set import dataset settings
 filepath = "0-Dataset\training_test_2016_2019\SALINITY_OBS_WITH_FEATURES.xlsx";
-nVars = 8;
+nVars = 7;
 dataRange = "A2:G1462";
 sheetName = "Salinity_obs";
 varNames = ["Year","Qriver", "Qll", "Qtide", "Sll", "Socean", "SalinityObs"]; 
