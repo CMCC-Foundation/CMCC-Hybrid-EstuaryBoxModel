@@ -28,10 +28,10 @@ ck_dataset = remove_missing_data_features(ck_dataset);
 %% Split original dataset in training and test set
 [ck_training_dataset, ck_test_dataset] = create_training_test_dataset(ck_dataset, 0.2);
 
-%save('0-Dataset/training_test_2016_2019/Ck-Training-Dataset.mat','ck_training_dataset');
-%save('0-Dataset/training_test_2016_2019/Ck-Test-Dataset.mat','ck_test_dataset');
-%writetable(ck_training_dataset, '0-Dataset/training_test_2016_2019/Ck-Training-Dataset.xlsx', 'WriteRowNames',true);
-%writetable(ck_test_dataset, '0-Dataset/training_test_2016_2019/Ck-Test-Dataset.xlsx', 'WriteRowNames',true);
+save('0-Dataset/training_test_2016_2019/Ck-Training-Dataset.mat','ck_training_dataset');
+save('0-Dataset/training_test_2016_2019/Ck-Test-Dataset.mat','ck_test_dataset');
+writetable(ck_training_dataset, '0-Dataset/training_test_2016_2019/Ck-Training-Dataset.xlsx', 'WriteRowNames',true);
+writetable(ck_test_dataset, '0-Dataset/training_test_2016_2019/Ck-Test-Dataset.xlsx', 'WriteRowNames',true);
 
 %% Plot boxplot for training and test dataset
 plot_boxplot_training_test("Boxplot of features for ck estimation",...
