@@ -24,6 +24,9 @@ varTypes = ["datetime", "double", "double", "double", "double","double", "double
 [lx_dataset] = import_dataset(filepath, nVars, dataRange, sheetName, varNames, varTypes);
 save('0-Dataset/LX_OBS_WITH_FEATURES.mat','lx_dataset');
 
+%% Scatter plot
+plot_scatterplot(lx_dataset(:,2:5), lx_dataset(:,6));
+
 %% Set target feature for the machine and deep learning model
 targetFeatureName = 'Lx_OBS';
 
