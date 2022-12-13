@@ -18,7 +18,7 @@ filepath = "0-Dataset\training_test_2016_2019_new_cal\ck-train-dataset-new-cal.x
 nVars = 7;
 dataRange = "A2:G964";
 sheetName = "ck_train";
-varNames = ["Year","Doy","Qriver", "Qtide", "Socean", "CkyObs", "CkObsOldModel"]; 
+varNames = ["Year","Doy","Qriver", "Qtide", "Socean", "CkObs", "CkObsOldModel"]; 
 varTypes = ["int16","int16","double", "double","double","double","double"];
 [ck_training_dataset] = import_dataset(filepath, nVars, dataRange, sheetName, varNames, varTypes);
 
