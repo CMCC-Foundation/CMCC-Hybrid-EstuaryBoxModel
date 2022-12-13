@@ -67,7 +67,7 @@ targetFeatureName = 'SalinityObs';
 
 %% Set maxObjectiveEvaluations as maximum number of objective functions to
 %  be evaluated in the optimization process
-max_objective_evaluations = 2;
+max_objective_evaluations = 45;
 
 %% Set k to be use in k-fold cross validation
 k = 5;
@@ -151,6 +151,6 @@ disp(results_test);
 disp(pwbTable);
 
 writetable(results_training, '1-Trained-Models/training_test_2016_2019_new_cal/Results-salinity-training-model.xlsx', 'WriteRowNames',true);
-writetable(results_test, '1-Trained-Models/training_test_2016_2019_new_caò/Results-salinity-test-model.xlsx', 'WriteRowNames',true);
+writetable(results_test, '1-Trained-Models/training_test_2016_2019_new_cal/Results-salinity-test-model.xlsx', 'WriteRowNames',true);
 writetable(pwbTable, "1-Trained-Models/training_test_2016_2019_new_cal/pwbTable.xlsx", "WriteRowNames", true);
 save("1-Trained-Models\training_test_2016_2019_new_cal\Salinity-Trained-Tested-model-new-cal.mat","result_trained_model");
