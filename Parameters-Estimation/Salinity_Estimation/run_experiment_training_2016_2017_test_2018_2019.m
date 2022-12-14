@@ -11,6 +11,7 @@
 addpath(genpath('0-Dataset\training_2016_2017_test_2018_2019_comparing_old_model\Q_river_All'));
 addpath(genpath('..\..\Machine-Learning-Tools\1-Utility'));
 addpath(genpath('..\..\Machine-Learning-Tools\2-Machine-Learning-Function'));
+addpath(genpath('..\..\Machine-Learning-Tools\3-Plot-Figure'));
 addpath(genpath('1_Trained-Models\training_2016_2017_test_2018_2019_comparing_old_model\Q_river_All'));
 
 %% Set import dataset settings
@@ -38,6 +39,13 @@ save('0-Dataset/training_2016_2017_test_2018_2019_comparing_old_model/Q_river_Al
     'salinity_training_dataset');
 save('0-Dataset/training_2016_2017_test_2018_2019_comparing_old_model/Q_river_All/Salinity-Test-Dataset_2018_2019.mat', ...
     'salinity_test_dataset_2018_2019');
+
+%% Plot boxplot
+plot_boxplot(strcat("Boxplot of features for Salinity estimation"),...
+     removevars(salinity_training_dataset,{'Year', 'Salinity_Old_model',}),...
+     removevars(salinity_test_dataset_2018,{'Year', 'Salinity_Old_model'}),...
+     removevars(salinity_test_dataset_2019,{'Year', 'Salinity_Old_model'}),...
+     removevars(salinity_test_dataset_2018_2019,{'Year', 'Salinity_Old_model'}));
 
 %% Create table for k-fold cross validation results
 algorithm_names = {'random_forest', 'lsboost', 'neural_network', 'old_model' };

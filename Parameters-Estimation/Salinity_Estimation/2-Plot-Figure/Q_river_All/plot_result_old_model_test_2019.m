@@ -4,7 +4,7 @@ addpath(genpath('..\..\..\..\Machine-Learning-Tools\3-Plot-Figure'));
 load("..\..\0-Dataset\training_2016_2017_test_2018_2019_comparing_old_model\Q_river_All\SALINITY_OLD_MODEL_PREDICTIONS.mat")
 load("..\..\1-Trained-Models\training_2016_2017_test_2018_2019_comparing_old_model\Q_river_All\Salinity-Trained-Tested-model-k-5-old-configuration.mat");
 
-algorithm_names = {'old model','random forest', 'lsboost', 'neural network'};
+algorithm_names = {'EBM','Random Forest', 'Lsboost', 'Neural Network'};
 response = 'Salinity_Obs';
 
 %% Test dataset
@@ -15,5 +15,5 @@ test_table_results = array2table([salinity_dataset.Salinity_Obs(salinity_dataset
     result_trained_model.neural_network.test_results.test_2019_dataset.test_predictions ...
 ],"VariableNames",{'real_sal', 'old_model_pred', 'rf_pred', 'lsb_pred', 'nn_pred'});
 
-create_perfect_fit_residuals_plot(test_table_results, algorithm_names, response, "Test dataset 2019",false,0);
+create_perfect_fit_residuals_plot(test_table_results, algorithm_names, response, "Test dataset 2019",true,30);
 compare_real_pred_obs(test_table_results, algorithm_names, "Test dataset 2019", "Salinity (psu)");
