@@ -5,7 +5,7 @@ load("..\..\0-Dataset\training_test_2016_2019\Ck-Training-Dataset.mat");
 load("..\..\0-Dataset\training_test_2016_2019\Ck-Test-Dataset.mat");
 load("..\..\1-Trained-Models\training_test_2016_2019\Ck-Trained-Tested-model.mat");
 
-algorithm_names = {'random forest', 'lsboost', 'neural network'};
+algorithm_names = {'Random Forest', 'Lsboost', 'Neural Network'};
 response = 'CkObs';
 
 %% Training dataset

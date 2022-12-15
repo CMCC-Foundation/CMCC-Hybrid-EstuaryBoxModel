@@ -36,6 +36,13 @@ save('0-Dataset/training_2016_2017_test_2018_2019_comparing_old_model/Q_river_Al
 save('0-Dataset/training_2016_2017_test_2018_2019_comparing_old_model/Q_river_All/Ck-Training-Dataset_2016_2017.mat','ck_training_dataset');
 save('0-Dataset/training_2016_2017_test_2018_2019_comparing_old_model/Q_river_All/Ck-Test-Dataset_2018_2019.mat','ck_test_dataset_2018_2019');
 
+%% Plot boxplot
+plot_boxplot(strcat("Boxplot of features for ck estimation"),...
+     removevars(ck_training_dataset,{'Year', 'Ck_old_model'}),...
+     removevars(ck_test_dataset_2018,{'Year', 'Ck_old_model'}),...
+     removevars(ck_test_dataset_2019,{'Year', 'Ck_old_model'}),...
+     removevars(ck_test_dataset_2018_2019,{'Year', 'Ck_old_model'}));
+
 %% Create table for k-fold cross validation results
 algorithm_names = {'random_forest', 'lsboost', 'neural_network', 'old_model' };
 
