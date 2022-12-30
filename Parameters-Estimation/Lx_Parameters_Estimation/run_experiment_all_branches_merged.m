@@ -159,3 +159,5 @@ writetable(results_training, '1-Trained-Models\Po-all-branches\all-branches-merg
 writetable(results_test, '1-Trained-Models\Po-all-branches\all-branches-merged\Results-test-model.xlsx', 'WriteRowNames',true);
 writetable(pwbTable, "1-Trained-Models\Po-all-branches\all-branches-merged\pwbTable.xlsx", "WriteRowNames", true);
 save("1-Trained-Models\Po-all-branches\all-branches-merged\Trained_Test_Model.mat","result_trained_model");
+save("0-Dataset\Po-all-branches\all-branches-merged\lx_training_dataset.mat","lx_training_dataset");
+save("0-Dataset\Po-all-branches\all-branches-merged\lx_test_dataset.mat","lx_test_dataset");
