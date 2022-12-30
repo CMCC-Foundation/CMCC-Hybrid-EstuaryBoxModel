@@ -137,12 +137,24 @@ result_trained_model.new_model_equation.test_results.test_predictions = lx_test_
 result_trained_model.new_model_equation.test_results.metrics = results_test("LxNewEquation",:);
 pwbTable = create_pwb_table(lx_test_dataset(:, targetFeatureName), result_trained_model.new_model_equation.test_results.test_predictions,pwbTable,algorithm_names(4),pwbX);
 
+%% Store predictions in training and test dataset
+lx_training_dataset.RandomForest_Prediction = result_trained_model.random_forest.validation_results.validation_predictions;
+lx_training_dataset.Lsboost_Prediction = result_trained_model.lsboost.validation_results.validation_predictions;
+lx_training_dataset.DatasetType = repmat('Training_Dataset',height(lx_training_dataset),1);
 
+lx_test_dataset.RandomForest_Prediction = result_trained_model.random_forest.test_results.test_predictions;
+lx_test_dataset.Lsboost_Prediction = result_trained_model.lsboost.test_results.test_predictions;
+lx_test_dataset.DatasetType = repmat('Test_Dataset',height(lx_test_dataset),1);
+
+%% Display performances
 clc;
 disp(results_training(:,{'RMSE','R2','Corr Coeff'}));
 disp(results_test(:,{'RMSE','R2','Corr Coeff'}));
 disp(pwbTable);
 
+%% Save results
+writetable(lx_training_dataset, '0-Dataset\Po-all-branches\all-branches-merged\lx_training_dataset.xlsx');
+writetable(lx_test_dataset, '0-Dataset\Po-all-branches\all-branches-merged\lx_test_dataset.xlsx');
 writetable(results_training, '1-Trained-Models\Po-all-branches\all-branches-merged\Results-training-model.xlsx', 'WriteRowNames',true);
 writetable(results_test, '1-Trained-Models\Po-all-branches\all-branches-merged\Results-test-model.xlsx', 'WriteRowNames',true);
 writetable(pwbTable, "1-Trained-Models\Po-all-branches\all-branches-merged\pwbTable.xlsx", "WriteRowNames", true);
