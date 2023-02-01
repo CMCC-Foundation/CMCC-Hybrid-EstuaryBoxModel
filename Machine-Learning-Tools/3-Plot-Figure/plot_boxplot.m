@@ -1,6 +1,6 @@
 function plot_boxplot(subplot_title, varargin)
     n_features = width(varargin{1});
-    n_col_subplot = n_features./2;
+    n_col_subplot = round(n_features./2);
 
     n_rows_dat_1 = height(varargin{1});
     n_rows_dat_2 = height(varargin{2});

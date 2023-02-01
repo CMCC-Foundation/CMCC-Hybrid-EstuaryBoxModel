@@ -116,7 +116,7 @@ result_trained_model.old_model_results.validation_results.validation_predictions
 result_trained_model.old_model_results.validation_results.metrics = results_training("old_model",:);
 
 % compute test performance
-results_test = compute_metrics(lx_training_dataset.Lx_OBS,lx_training_dataset.Lx_Model,algorithm_names(3), results_test);
+results_test = compute_metrics(lx_test_dataset.Lx_OBS,lx_test_dataset.Lx_Model,algorithm_names(3), results_test);
 test_results = struct();
 result_trained_model.old_model_results.test_results = test_results;
 result_trained_model.old_model_results.test_results.test_predictions = lx_test_dataset.Lx_Model;
