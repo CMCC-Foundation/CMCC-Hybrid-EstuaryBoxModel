@@ -1,6 +1,8 @@
 # Hybird-EBM-with-Machine-Learning-techniques-Po_Goro_River-Test-Case
-This project concerning the development of predictive regression models for the estimation of the salt wedge intrusion length and the salinity concentration in the Po River (Po-Goro-Branch). 
+This project concerning the development of predictive regression models for the estimation of the salt wedge intrusion length (L<sub>x</sub>) and the salinity concentration in the Po River (Po-Goro-Branch). 
 The aim is to compare the results provided by a ML-based models with respect a physics-based model. Also, an Hybrid-Model has been implemented by mixing the ML-based model with the Physics-based model. A significant improvement has been achived both with the ML and Hybrid-based models, with respect the physics-model.
+<br>In particular, for the estimation of the salt wedge intrusion length (L<sub>x</sub>), Random Forest and Least-Square Boosting Algorithms have been trained and validated, while for the salinity estimation also an Artificial Neural Network has been built. 
+Lastly, for the development of an Hybrid-model, Random Forest and LSBoost algorithms have been trained to deploy a model for the non-dimensional eddy diffusivity coefficient (C<sub>k</sub>) estimation. The predictions given by ML models for (L<sub>x</sub>) and (C<sub>k</sub>) have been used as input for the physic-model to predict the salinity concentration.
 
 ## Project structure
 Project is organized as follow:
