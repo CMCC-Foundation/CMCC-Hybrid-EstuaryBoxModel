@@ -1,45 +1,47 @@
-%% Function to train and LSBoost regression model
-% Input:
-%  1) trainingDataset: 
-%  Table containing the same predictor and response columns as those 
-%  imported into the app.
-%  
-%  2) targetFeatureName: 
-%  String with the name of the target feature in the trainingData table.
-%  
-%  3) max_objective_evaluations:
-%  Maximum number of objective functions to be evaluated in the
-%  optimization process     
-%
-%  4) k-fold to use in cross-validation
-%
-% Output:
-%  Compact structure with the following data:
-%  
-%  1) model:
-%  Struct containing the trained regression model. The
-%  struct contains various fields with information about the trained
-%  model. 
-%  trainedModel.predictFcn: A function to make predictions on new data.
-%
-%  2) validation_results: 
-%  Structure in which will be store the training performance and the
-%  training predictions
-%       
-%  3) test_results: 
-%  Structure in which will be store the test performance and the test
-%  predictions
-%
-%  4)feature_importance:
-%  Table with features and score which indicates how important is each 
-%  feature to train the model. Features have been ordered from the most 
-%  important to the least important.
-%
-%  5) hyperparameters:
-%  Table with the best hyperparameters obtained by hyperparameters
-%  optimization
-
 function [results] = lsboost_function(trainingDataset,targetFeatureName,max_objective_evaluations, k)
+%LSBOOST_FOREST_FUNCTION Function to train LSBoost regression model
+%   Input:
+%   1) trainingDataset: 
+%   Table containing the same predictor and response columns as those 
+%   imported into the app.
+%  
+%   2) targetFeatureName: 
+%   String with the name of the target feature in the trainingData table.
+%  
+%   3) max_objective_evaluations:
+%   Maximum number of objective functions to be evaluated in the
+%   optimization process     
+%
+%   4) k-fold to use in cross-validation
+%
+%   Output: results
+%   Compact structure with the following data:
+%  
+%   1) model:
+%   Struct containing the trained regression model. The
+%   struct contains various fields with information about the trained
+%   model. 
+%   trainedModel.predictFcn: A function to make predictions on new data.
+%
+%   2) validation_results: 
+%   Structure in which will be store the training performance and the
+%   training predictions
+%       
+%   3) test_results: 
+%   Structure in which will be store the test performance and the test
+%   predictions
+%
+%   4)feature_importance:
+%   Table with features and score which indicates how important is each 
+%   feature to train the model. Features have been ordered from the most 
+%   important to the least important.
+%
+%   5) hyperparameters:
+%   Table with the best hyperparameters obtained by hyperparameters
+%   optimization
+
+
+
 %% Extract predictors and response
 inputTable = trainingDataset;
 

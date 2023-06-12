@@ -1,55 +1,56 @@
-%% Function to train a neural network regression model
-% Input:
-%  1) training_dataset: 
-%  Table containing the same predictor and response columns as those 
-%  imported into the app.
-%  
-%  2) target_feature_name: 
-%  String with the name of the target feature in the trainingData table.
-%
-%  3) min_number_of_layer:
-%  Minimum number of layers in the neural network model
-%
-%  4) max_number_of_layer:
-%  Maximum number of layers in the neural network model
-%
-%  5) min_number_of_unit_for_layer:
-%  Minimum number of units (neuron) in each layer of the neural network
-%
-%  6) max_number_of_unit_for_layer:
-%  Maximum number of units (neuron) in each layer of the neural network
-%  
-%  7) max_objective_evaluations:
-%  Maximum number of objective functions to be evaluated in the
-%  optimization process
-%  
-%  8) k-fold to use in cross-validation
-%
-% Output:
-%  Compact structure with the following data:
-%  
-%  1) model:
-%  Struct containing the trained regression model. The
-%  struct contains various fields with information about the trained
-%  model. 
-%  trainedModel.predictFcn: A function to make predictions on new data.
-%
-%  2) validation_results: 
-%  Structure in which will be store the training performance and the
-%  training predictions
-%       
-%  3) test_results: 
-%  Structure in which will be store the test performance and the test
-%  predictions
-%
-%  4) hyperparameters:
-%  Table with the best hyperparameters obtained by hyperparameters
-%  optimization
-
 function [results] = ...
     neural_network_function(training_dataset, target_feature_name,...
     min_number_of_layer, max_number_of_layer, min_number_of_unit_for_layer,...
     max_number_of_unit_for_layer, max_objective_evaluations, k)
+
+%NEURAL_NETWORK_FUNCTION Function to train a neural network regression model
+%   Input:
+%   1) training_dataset: 
+%   Table containing the same predictor and response columns as those 
+%   imported into the app.
+%  
+%   2) target_feature_name: 
+%   String with the name of the target feature in the trainingData table.
+%
+%   3) min_number_of_layer:
+%   Minimum number of layers in the neural network model
+%
+%   4) max_number_of_layer:
+%   Maximum number of layers in the neural network model
+%
+%   5) min_number_of_unit_for_layer:
+%   Minimum number of units (neuron) in each layer of the neural network
+%
+%   6) max_number_of_unit_for_layer:
+%   Maximum number of units (neuron) in each layer of the neural network
+%  
+%   7) max_objective_evaluations:
+%   Maximum number of objective functions to be evaluated in the
+%   optimization process
+%  
+%   8) k-fold to use in cross-validation
+%
+%   Output: results
+%   Compact structure with the following data:
+%  
+%   1) model:
+%   Struct containing the trained regression model. The
+%   struct contains various fields with information about the trained
+%   model. 
+%   trainedModel.predictFcn: A function to make predictions on new data.
+%
+%   2) validation_results: 
+%   Structure in which will be store the training performance and the
+%   training predictions
+%       
+%   3) test_results: 
+%   Structure in which will be store the test performance and the test
+%   predictions
+%
+%   4) hyperparameters:
+%   Table with the best hyperparameters obtained by hyperparameters
+%   optimization
+
 %% Extract predictors and response
 input_table = training_dataset;
 
