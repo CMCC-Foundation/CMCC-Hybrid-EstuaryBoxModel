@@ -1,4 +1,13 @@
 function [] = create_residuals_plot(resumePredictions,algorithm_names, response)
+%CREATE_RESIDUALS_PLOT This function plot a response plot with residuals
+%   Input:
+%   1) resumePredictions - table with a summary of observed and predicted
+%   values
+%  
+%   2) algorithm_names - string array with the names of the trained models
+%   
+%   3) response - the name of the target value
+
     f = figure;
     %f.Position = [0 0 1000 1000];
     f.Position = [0 0 1500 450];

@@ -1,4 +1,17 @@
 function [] = create_perfect_fit(resumePredictions,algorithm_names,addBoundPerfectFit, percentageBoundPerfectFit)
+%CREATE_PERFECT_FIT This function plot a perfect predictions plot
+%   Input:
+%   1) resumePredictions - table with a summary of observed and predicted
+%   values
+%  
+%   2) algorithm_names - string array with the names of the trained models
+%   
+%   3) addBoundPerfectFit - boolean value to add or not a bound on the
+%   perfect predictions line
+%
+%   4) percentageBoundPerfectFit - percentage bound to be added on the
+%   perfect predictions plot
+
     f = figure;
     f.Position = [0 0 1500 450];
     %f.Position = [0 0 1000 1000];

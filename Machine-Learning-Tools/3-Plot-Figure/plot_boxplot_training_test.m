@@ -1,4 +1,11 @@
 function plot_boxplot_training_test(subplot_title, varargin)
+%PLOT_BOXPLOT_TRAINING_TEST This function plot a barchart for the feature importance
+%score
+%   Input:
+%   1) subplot_title - array of features name
+%  
+%   2) varargin - an array with variable argument
+
     n_features = width(varargin{1});
     n_col_subplot = n_features./2;
 
