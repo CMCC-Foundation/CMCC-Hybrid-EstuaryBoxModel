@@ -1,5 +1,5 @@
-%% Function to train and test a random forest regression model
-%% Input:
+%% Function to train and random forest regression model
+% Input:
 %  1) trainingDataset: 
 %  Table containing the same predictor and response columns as those 
 %  imported into the app.
@@ -12,32 +12,32 @@
 %  optimization process     
 %
 %  4) k-fold to use in cross-validation
-
-%% Output:
+%
+% Output:
 %  Compact structure with the following data:
 %  
-%  1) trainedModel:
+%  1) model:
 %  Struct containing the trained regression model. The
 %  struct contains various fields with information about the trained
 %  model. 
 %  trainedModel.predictFcn: A function to make predictions on new data.
 %
-%  2) validationRMSE: 
-%  Double containing the RMSE which measure the performance of the trained
-%  model.
+%  2) validation_results: 
+%  Structure in which will be store the training performance and the
+%  training predictions
 %       
-%  3) validationPredictions: 
-%  Vector with the predected values with respect the observed values in the
-%  trainingDataset
-%      
-%  4)featuresImportanceTable:
+%  3) test_results: 
+%  Structure in which will be store the test performance and the test
+%  predictions
+%
+%  4)feature_importance:
 %  Table with features and score which indicates how important is each 
 %  feature to train the model. Features have been ordered from the most 
 %  important to the least important.
 %
-%  5) tuningResult:
-%  Table with the optimized hyperparameters obtained by auto-tuning
-%  procedure
+%  5) hyperparameters:
+%  Table with the best hyperparameters obtained by hyperparameters
+%  optimization
 
 function [results] = random_forest_function(trainingDataset,targetFeatureName,max_objective_evaluations, k)
 %% Extract predictors and response
@@ -72,21 +72,16 @@ random_forest_settings_optimized = fitrensemble( ...
     "UseParallel", true));
 
 %% Save all the optimized hyperparameters
-nLearn = random_forest_settings_optimized.ModelParameters.NLearn;
 modelParams = ...
     struct(random_forest_settings_optimized.ModelParameters.LearnerTemplates{1,1});
-maxSplits = modelParams.ModelParams.MaxSplits;
-minLeaf = modelParams.ModelParams.MinLeaf;
-nVarToSample = modelParams.ModelParams.NVarToSample;
-
 tuningResult = table('Size', [1 4], 'VariableTypes',...
    {'double','double','double','double'}, 'VariableNames',...
    {'nLearn','minLeaf','maxSplits','nVarToSample'});
 
-tuningResult.nLearn(1) = nLearn;
-tuningResult.minLeaf(1) = minLeaf;
-tuningResult.maxSplits(1) = maxSplits;
-tuningResult.nVarToSample(1) = nVarToSample;
+tuningResult.nLearn(1) = random_forest_settings_optimized.ModelParameters.NLearn;
+tuningResult.minLeaf(1) = modelParams.ModelParams.MinLeaf;
+tuningResult.maxSplits(1) = modelParams.ModelParams.MaxSplits;
+tuningResult.nVarToSample(1) = modelParams.ModelParams.NVarToSample;
 
 %% Create the result struct with predict function
 predictorExtractionFcn = @(t) t(:, predictorNames);
@@ -110,7 +105,6 @@ trainedModel.HowToPredict = ...
 %% Perform cross-validation with k fold
 partitionedModel = crossval(trainedModel.RegressionEnsemble, 'KFold', k);
 validationPredictions = kfoldPredict(partitionedModel);
-validationRMSE = sqrt(kfoldLoss(partitionedModel, 'LossFun', 'mse'));
 
 %% Compute features importance
 featureImportance = predictorImportance(random_forest_settings_optimized);
@@ -121,7 +115,6 @@ featuresImportanceTable = sortrows(featuresImportanceTable,'score','descend');
 
 validation_results = struct();
 test_results = struct();
-
 validation_results.validation_predictions = validationPredictions;
 
 results = struct('model', trainedModel, ...

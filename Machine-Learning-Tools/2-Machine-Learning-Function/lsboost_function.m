@@ -1,5 +1,5 @@
-%% Function to train and test a lsboost regression model
-%% Input:
+%% Function to train and LSBoost regression model
+% Input:
 %  1) trainingDataset: 
 %  Table containing the same predictor and response columns as those 
 %  imported into the app.
@@ -12,32 +12,32 @@
 %  optimization process     
 %
 %  4) k-fold to use in cross-validation
-
-%% Output:
+%
+% Output:
 %  Compact structure with the following data:
 %  
-%  1) trainedModel:
+%  1) model:
 %  Struct containing the trained regression model. The
 %  struct contains various fields with information about the trained
 %  model. 
 %  trainedModel.predictFcn: A function to make predictions on new data.
 %
-%  2) validationRMSE: 
-%  Double containing the RMSE which measure the performance of the trained
-%  model.
+%  2) validation_results: 
+%  Structure in which will be store the training performance and the
+%  training predictions
 %       
-%  3) validationPredictions: 
-%  Vector with the predected values with respect the observed values in the
-%  trainingDataset
-%      
-%  4)featuresImportanceTable:
+%  3) test_results: 
+%  Structure in which will be store the test performance and the test
+%  predictions
+%
+%  4)feature_importance:
 %  Table with features and score which indicates how important is each 
 %  feature to train the model. Features have been ordered from the most 
 %  important to the least important.
 %
-%  5) tuningResult:
-%  Table with the optimized hyperparameters obtained by auto-tuning
-%  procedure
+%  5) hyperparameters:
+%  Table with the best hyperparameters obtained by hyperparameters
+%  optimization
 
 function [results] = lsboost_function(trainingDataset,targetFeatureName,max_objective_evaluations, k)
 %% Extract predictors and response
@@ -72,21 +72,15 @@ lsboost_settings_optimized = fitrensemble( ...
     "UseParallel", true));
 
 %% Save all the optimized hyperparameters
-nLearn = lsboost_settings_optimized.ModelParameters.NLearn;
-learnRate = lsboost_settings_optimized.ModelParameters.LearnRate;
-modelParams = ...
-    struct(lsboost_settings_optimized.ModelParameters.LearnerTemplates{1,1});
-minLeaf = modelParams.ModelParams.MinLeaf;
-maxNSplits = modelParams.ModelParams.MaxSplits;
-
+modelParams = struct(lsboost_settings_optimized.ModelParameters.LearnerTemplates{1,1});
 tuningResult = table('Size', [1 4], 'VariableTypes',...
    {'double','double','double','double'}, 'VariableNames',...
    {'nLearn','minLeaf','learnRate','maxNumSplits'});
 
-tuningResult.nLearn(1) = nLearn;
-tuningResult.minLeaf(1) = minLeaf;
-tuningResult.learnRate(1) = learnRate;
-tuningResult.maxNumSplits(1) = maxNSplits;
+tuningResult.nLearn(1) = lsboost_settings_optimized.ModelParameters.NLearn;
+tuningResult.minLeaf(1) = modelParams.ModelParams.MinLeaf;
+tuningResult.learnRate(1) = lsboost_settings_optimized.ModelParameters.LearnRate;
+tuningResult.maxNumSplits(1) = modelParams.ModelParams.MaxSplits;
 
 %% Create the result struct with predict function
 predictorExtractionFcn = @(t) t(:, predictorNames);
@@ -110,7 +104,6 @@ trainedModel.HowToPredict = ...
 %% Perform cross-validation with k = 5
 partitionedModel = crossval(trainedModel.RegressionEnsemble, 'KFold', k);
 validationPredictions = kfoldPredict(partitionedModel);
-validationRMSE = sqrt(kfoldLoss(partitionedModel, 'LossFun', 'mse'));
 
 %% Compute features importance
 featureImportance = predictorImportance(lsboost_settings_optimized);
@@ -121,7 +114,6 @@ featuresImportanceTable = sortrows(featuresImportanceTable,'score','descend');
 
 validation_results = struct();
 test_results = struct();
-
 validation_results.validation_predictions = validationPredictions;
 
 results = struct('model', trainedModel, ...

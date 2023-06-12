@@ -1,5 +1,5 @@
-%% Function to train and test a neural network regression model
-%% Input:
+%% Function to train a neural network regression model
+% Input:
 %  1) training_dataset: 
 %  Table containing the same predictor and response columns as those 
 %  imported into the app.
@@ -24,25 +24,28 @@
 %  optimization process
 %  
 %  8) k-fold to use in cross-validation
-
-%% Output:
-%  1) trained_model:
+%
+% Output:
+%  Compact structure with the following data:
+%  
+%  1) model:
 %  Struct containing the trained regression model. The
 %  struct contains various fields with information about the trained
 %  model. 
 %  trainedModel.predictFcn: A function to make predictions on new data.
 %
-%  2) validation_RMSE: 
-%  Double containing the RMSE which measure the performance of the trained
-%  model.
+%  2) validation_results: 
+%  Structure in which will be store the training performance and the
+%  training predictions
 %       
-%  3) validation_predictions: 
-%  Vector with the predected values with respect the observed values in the
-%  training_dataset
+%  3) test_results: 
+%  Structure in which will be store the test performance and the test
+%  predictions
 %
-%  4) neural_network_settings_optimized:
-%  Struct with the optimized hyperparameters obtained by auto-tuning
-%  procedure
+%  4) hyperparameters:
+%  Table with the best hyperparameters obtained by hyperparameters
+%  optimization
+
 function [results] = ...
     neural_network_function(training_dataset, target_feature_name,...
     min_number_of_layer, max_number_of_layer, min_number_of_unit_for_layer,...
@@ -116,11 +119,9 @@ trainedModel.HowToPredict = ...
 %% Perform cross-validation
 partitioned_model = crossval(trainedModel.RegressionNeuralNetwork, 'KFold', k);
 validationPredictions = kfoldPredict(partitioned_model);
-validationRMSE = sqrt(kfoldLoss(partitioned_model, 'LossFun', 'mse'));
 
 validation_results = struct();
 test_results = struct();
-
 validation_results.validation_predictions = validationPredictions;
 
 results = struct('model', trainedModel, ...
