@@ -7,15 +7,17 @@
 addpath(genpath("..\..\lib\config\"));
 load_path_hyb_ebm_model(1);
 
-%% Import training dataset
-lx_training_dataset = import_dataset("lx-train-dataset.xlsx", 7, "A2:G21", "Lx_obs", ...
+%% Read dataset
+lx_dataset = import_dataset("Lx-Dataset.xlsx", 7, "A2:G26", "Lx_obs", ...
     ["Date","Qll", "Qriver", "Sll", "Qtidef", "LxObs", "EbmPred"], ...
     ["datetime", "double", "double", "double", "double","double", "double"]);
 
-%% Import test dataset
-lx_test_dataset = import_dataset("lx-test-dataset.xlsx", 7, "A2:G6", "Lx_obs", ...
-    ["Date","Qll", "Qriver", "Sll", "Qtidef", "LxObs", "EbmPred"], ...
-    ["datetime", "double", "double", "double", "double","double", "double"]);
+%% Split dataset in training and test
+[lx_training_dataset, lx_test_dataset] = create_training_test_dataset (lx_dataset, 0.2);
+
+%% Save training and test dataset
+writetable(lx_training_dataset, '..\..\..\data\input\Lx\Lx-Training-Results-2.xlsx', 'WriteRowNames',true);
+writetable(lx_test_dataset, '..\..\..\data\input\Lx\Lx-Test-Results-2.xlsx', 'WriteRowNames',true);
 
 %% Create table for stroring training and test results
 algorithm_names = {'EBM','RF','LSBoost'};
