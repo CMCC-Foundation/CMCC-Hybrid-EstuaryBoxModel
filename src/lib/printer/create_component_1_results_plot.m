@@ -1,6 +1,6 @@
 function [] = create_component_1_results_plot(resumePredictions,algorithm_names, ...
     addBoundPerfectFit, percentageBoundPerfectFit, xylim, response)
-%CREATE_PERFECT_FIT This function plot a perfect predictions plot
+%CREATE_COMPONENT_1_RESULTS_PLOT This function plot a perfect predictions plot
 %   Input:
 %   1) resumePredictions - table with a summary of observed and predicted
 %   values
@@ -12,6 +12,11 @@ function [] = create_component_1_results_plot(resumePredictions,algorithm_names,
 %
 %   4) percentageBoundPerfectFit - percentage bound to be added on the
 %   perfect predictions plot
+%
+%   5) xylim - the max min on x/y axes
+%
+%   6) response - the name of the target value
+    
     f = figure;
     f.Position = [0 0 1500 450];
     
@@ -33,5 +38,4 @@ function [] = create_component_1_results_plot(resumePredictions,algorithm_names,
             response);
         plot_residuals_bar(resumeTable, algorithm_names(i), response, xylim);
     end
-
 end
