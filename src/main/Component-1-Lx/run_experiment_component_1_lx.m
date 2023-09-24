@@ -16,8 +16,8 @@ lx_dataset = import_dataset("Lx-Dataset.xlsx", 7, "A2:G26", "Lx_obs", ...
 [lx_training_dataset, lx_test_dataset] = create_training_test_dataset (lx_dataset, 0.2);
 
 %% Save training and test dataset
-writetable(lx_training_dataset, '..\..\..\data\input\Lx\Lx-Training-Results-2.xlsx', 'WriteRowNames',true);
-writetable(lx_test_dataset, '..\..\..\data\input\Lx\Lx-Test-Results-2.xlsx', 'WriteRowNames',true);
+writetable(lx_training_dataset, '..\..\..\data\input\Component-1-Lx\Lx-Training-Dataset.xlsx', 'WriteRowNames',true);
+writetable(lx_test_dataset, '..\..\..\data\input\Component-1-Lx\Lx-Test-Dataset.xlsx', 'WriteRowNames',true);
 
 %% Create table for stroring training and test results
 algorithm_names = {'EBM','RF','LSBoost'};
@@ -153,8 +153,8 @@ training_table_results = array2table([ ...
     component_1_trained_models.LSBoost.validation_results.validation_predictions...
 ],"VariableNames",{'real_lx','ebm_pred', 'rf_pred', 'lsb_pred'});
 
-create_perfect_fit(training_table_results,algorithm_names,true,30);
-create_residuals_plot(training_table_results,algorithm_names,targetFeatureName);
+create_component_1_results_plot(training_table_results,algorithm_names, true, ...
+    30, 40, targetFeatureName);
 
 % Test dataset results
 test_table_results = array2table([ ...
@@ -164,8 +164,8 @@ test_table_results = array2table([ ...
     component_1_trained_models.LSBoost.test_results.test_predictions...
 ],"VariableNames",{'real_lx', 'ebm_pred', 'rf_pred', 'lsb_pred'});
 
-create_perfect_fit(test_table_results,algorithm_names,true,30);
-create_residuals_plot(test_table_results,algorithm_names,targetFeatureName);
+create_component_1_results_plot(test_table_results,algorithm_names, true, ...
+    30, 40, targetFeatureName);
 
 %% Save results and trained models
 writetable(results_training, '..\..\..\models\Component-1-Lx\Component-1-Lx-Training-Results.xlsx', 'WriteRowNames',true);

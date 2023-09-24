@@ -6,14 +6,14 @@ function load_path_hyb_ebm_model(hyb_comp)
 % 2-Component-Ck)
 
 path_mod_hyb_component = "..\..\..\models\Component-";
-path_data_inp_component = "..\..\..\data\input\";
+path_data_inp_component = "..\..\..\data\input\Component-";
 
 if (hyb_comp == 1)
     path_mod_hyb_component = strcat(path_mod_hyb_component, string(hyb_comp),"-Lx");
-    path_data_inp_component = strcat(path_data_inp_component, "Lx");
+    path_data_inp_component = strcat(path_data_inp_component, string(hyb_comp), "-Lx");
 elseif (hyb_comp == 2)
     path_mod_hyb_component = strcat(path_mod_hyb_component, string(hyb_comp),"-Ck");
-    path_data_inp_component = strcat(path_data_inp_component, "Ck");
+    path_data_inp_component = strcat(path_data_inp_component, string(hyb_comp),"-Ck");
 end
 
 if ~(isfolder(path_mod_hyb_component))
