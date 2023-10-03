@@ -1,4 +1,12 @@
 function [] = plot_residuals_bar(resumeTable,modelName, response, yylim)
+%PLOT_RESIDUALS_BAR This function plot a response plot with residuals bar
+%   Input:
+%   1) resumeTable
+%   2) modelName - the name of the trained model for which we are plotting
+%   the results
+%   3) response - the name of the target variable
+%   4) yylim - the lim of y-axis
+
     obs = resumeTable(:,response);
     pred = resumeTable.Predicted;
     

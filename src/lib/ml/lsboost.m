@@ -40,8 +40,6 @@ function [results] = lsboost(trainingDataset,targetFeatureName,max_objective_eva
 %   Table with the best hyperparameters obtained by hyperparameters
 %   optimization
 
-
-
 %% Extract predictors and response
 inputTable = trainingDataset;
 

@@ -1,4 +1,11 @@
 function [resumeTable] = create_residuals_table(obs, pred, response)
+%CREATE_RESIDUALS_TABLE This function create the resumeTable required by
+%PLOT_RESIDUALS_BAR.
+%   Input:
+%   1) obs - vector with the observed data
+%   2) pred - vctor with the predicted data
+%   3) response - the name of the target variable
+
     if (istable(obs))
         obs = table2array(obs);
     end

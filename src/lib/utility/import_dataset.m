@@ -3,17 +3,11 @@ function [dataset] = import_dataset(filepath, nVars, dataRange, sheetName, varNa
 % from an xlsx file and save in into a table.
 %   Input: 
 %   1) filepath - path of dataset
-%   
 %   2) nVars - number of variables in the table
-%
 %   3) dataRange - start and ending range of excel file
-%
 %   4) sheetName - name of sheet from which to read the data
-%
-%   5) varNames - name of variables in the table
-%   
+%   5) varNames - name of variables in the table 
 %   6) varTypes - datatype of each variables
-%
 %   Output:
 %   1) dataset - the table read from the path
 

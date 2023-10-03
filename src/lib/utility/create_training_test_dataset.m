@@ -3,13 +3,11 @@ function [train_set,test_set] = create_training_test_dataset(dataset, test_datas
 %   Input: 
 %   1) dataset - the original dataset which we want to split in training set
 %   and test set
-%   
 %   2) test_dataset_size: Fraction or number of observations in the test set 
 %   used for holdout validation
 %
 %   Output:
 %   1) train_set - the training dataset 
-%   
 %   2) test_set - the test dataset
 
     rng('shuffle');

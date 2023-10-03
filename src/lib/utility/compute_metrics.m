@@ -1,13 +1,9 @@
 function [results] = compute_metrics(obs, pred, algorithm_names, results)
 %COMPUTE_METRICS This function compute 8 different metrics to evaluate regression models performance
 %   Input:
-%
 %   1) obs - the observed values
-%  
 %   2) pred - the predicted values from regression model
-%   
 %   3) algorithm_names - names of the regression model used
-%   
 %   4) results - table to store performance
 %
 %   Output:
