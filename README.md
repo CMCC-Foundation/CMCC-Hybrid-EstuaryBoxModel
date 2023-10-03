@@ -1,40 +1,63 @@
-# Hybird-EBM-with-Machine-Learning-techniques-Po_Goro_River-Test-Case
-This project concerning the development of predictive regression models for the estimation of the salt wedge intrusion length (L<sub>x</sub>) and the salinity concentration in the Po River (Po-Goro-Branch). 
-The aim is to compare the results provided by a ML-based models with respect a physics-based model. Also, an Hybrid-Model has been implemented by mixing the ML-based model with the Physics-based model. A significant improvement has been achived both with the ML and Hybrid-based models, with respect the physics-model.
-<br>In particular, for the estimation of the salt wedge intrusion length (L<sub>x</sub>), Random Forest and Least-Square Boosting Algorithms have been trained and validated, while for the salinity estimation also an Artificial Neural Network has been built. 
-Lastly, for the development of an Hybrid-model, Random Forest and LSBoost algorithms have been trained to deploy a model for the non-dimensional eddy diffusivity coefficient (C<sub>k</sub>) estimation. The predictions given by ML models for (L<sub>x</sub>) and (C<sub>k</sub>) have been used as input for the physic-model to predict the salinity concentration.
+﻿# CMCC-Hybird-EBM-Po_Goro_River-Test-Case
+ 
+## Table of Contents:
+- [Description](#description)
+- [Data](#data)
+- [Source Code](#source-code)
+- [Contact](#contact)
+- [License](#license)
 
-## Project structure
-Project is organized as follow:
-* ```/Machine-Learning-Tools/```
-  * ```/ Machine-Learning-Tools / 1-Utility /```
-  * ```/ Machine-Learning-Tools / 2-Machine-Learning-Function /```  
-  * ```/ Machine-Learning-Tools / 3-Plot-Figure /```
-* ```/Parameters-Estimation/```
-  * ```/ Parameters-Estimation / Lx_Parameters_Estimation /```
-  * ```/ Parameters-Estimation / Ck_Parameters_Estimation /```  
-  * ```/ Parameters-Estimation / Salinity_Estimation /```
-  * ```/ Parameters-Estimation / Hybrid_Model_Predictions /```
+## Description [[to ToC]](#table-of-contents)
 
-## Prerequisites
-* MATLAB Version 9.14 (R2023a) (https://it.mathworks.com/products/matlab.html)
-* Statistics and Machine Learning Toolbox Version 12.5 (R2023a) (https://it.mathworks.com/products/statistics.html)
-* Parallel Computing Toolbox Version 7.8 (R2023a) (https://it.mathworks.com/products/parallel-computing.html)
+This project concerning the development of an hybrid model for the estimation of the salt-wedge intrusion length (L<sub>x</sub>) and the salinity concentration in the Po River (Po-Goro-Branch). 
+The Hybrid-EBM has been implemented by combining the ML-based model with the fully-physics EBM model. In particular, the first and the second component of this new model has been obtained replacing the two equations of the fully-physics model by ML algorithms like Random Forest and LSBoost.
 
-## Running the experiments
-To run the experiment to train the salt wedge intrusion length (L<sub>x</sub>) ML models:
-````
-/ Parameters-Estimation / Lx_Parameters_Estimation / run_experiment_train_2003_2012_test_2013_2017.m
-````
-To run the experiment to train the non-dimensional eddy diffusivity coefficient (C<sub>k</sub>) ML models:
+## Data [[to ToC]](#table-of-contents)
+The input data for this project is organized as follows:
 
-````
-/ Parameters-Estimation / Ck_Parameters_Estimation / run_experiment_training_test_2016_2019.m
-````
-To run the experiment to train the salinity ML models:
+- `data` folder: Contains two subfolders:
+  - `raw` folder: Contains three subfolders:
+	- `Component-1-Lx`: Contains Excel files with the raw data related to the component-1 of hybrid-model.
+	- `Component-2-Ck`: Contains three subfolders:
+		- `Ck-Obs-LSBoost`: Contains Excel files with the raw data related to the component-2 of hybrid-model generated using the Component-1-LSBoost.
+		- `Ck-Obs-RF`: Contains Excel files with the raw data related to the component-2 of hybrid-model generated using the Component-1-RF.
+		- `Input-Features-For-Synthetic-Ck-Obs-Generation`:Contains Excel files with the raw data required to generate the Ck observations.
+	- `Component-4-Sul`: Contains Excel files with the raw data related to the component-4 of hybrid-model.
+  - `processed` folder: Contains two subfolders:
+	- `Component-1-Lx`: Contains Excel files with the processed training and test dataset.
+	- `Component-2-Ck`: Contains two subfolders:
+		- `Ck-Obs-LSBoost`: Contains Excel files with the processed training and test dataset generated using the Component-1-LSBoost.
+		- `Ck-Obs-RF`: Contains Excel files with the processed training and test dataset generated using the Component-1-RF.
+  
 
-````
-/ Parameters-Estimation / Salinity_Estimation / run_experiment_training_test_2016_2019.m
-````
+## Source Code [[to ToC]](#table-of-contents)
+
+The source code for this project is organized as follows:
+
+- `src` folder: Contains the source code files and subfolders:
+  - `models`: Contains four subfolders, each of one contains the main scripts for running the modeling and analysis :
+	 - `Component-1-Lx` folder includes the following files:
+		- `train_model_component_1_lx.m`: The script to trains ML models for the component-1.
+	 - `Component-2-Ck` folder includes the following folder and file:
+		- `train_model_component_2_ck.m`: The script to trains ML models for the component-2.
+		- `Component-2-1-Generate-Syntethic-Ck-Observations` folder with the files:
+			- `run_equation_synthetic_ck_observations.m`: The script to run creation of new synthetic observations for ck values.
+			- `generate_synthetic_ck.m`: The function (equation) to generate the ck observations.
+	 - `Component-3-Qul` folder includes the following files:
+		- `compute_qul.m`: The function (equation) to compute the component-3 of hybrid-ebm.
+	 - `Component-4-Sul` folder includes the following files:
+		- `run_experiment_component_4_sul.m`: The script to run the component-4 of hybrid-ebm.
+		- `compute_sul.m`: The function (equation) to compute the component-4 of hybrid-ebm.
+  - `lib`: Contains libraries for analysis, machine learning, and utility functions.
+- `models` folder: Contains the trained models, models predictions and model summaries for each component of hybrid-model.
+- `reports` folder: Contains a brief reports of the analysis with graphics and figures.
 
 
+
+## Contact [[to ToC]](#table-of-contents)
+
+For any questions or inquiries, please contact [Leonardo Saccotelli](mailto:leonardo.saccotelli@cmcc.it) or [Rosalia Maglietta](mailto:rosalia.maglietta@cnr.it).
+
+## License [[to ToC]](#table-of-contents)
+
+This project is licensed under the [GPL 3.0 License](LICENSE).
