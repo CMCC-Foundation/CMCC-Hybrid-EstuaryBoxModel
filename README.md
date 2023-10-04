@@ -52,6 +52,25 @@ The source code for this project is organized as follows:
 - `models` folder contains the trained models, models predictions and model summaries for each component of hybrid-model.
 - `reports` folder contains a brief reports of the analysis with graphics and figures.
 
+## Requirements
+- MATLAB Version 9.14 (R2023a) (https://it.mathworks.com/products/matlab.html)
+- Statistics and Machine Learning Toolbox Version 12.5 (R2023a) (https://it.mathworks.com/products/statistics.html)
+- Parallel Computing Toolbox Version 7.8 (R2023a) (https://it.mathworks.com/products/parallel-computing.html)
+
+## Setup [[to ToC]](#table-of-contents)
+
+To set up the project, follow these steps:
+
+1. Clone the repository: 
+    ```
+    git clone https://github.com/your_username/CMCC-Hybird-EBM-Po_Goro_River-Test-Case.git
+    ```
+2. Navigate to the project directory:
+    ```
+    cd CMCC-Hybird-EBM-Po_Goro_River-Test-Case
+    ```
+
+## Usage [[to ToC]](#table-of-contents)
 
 
 ## Contact [[to ToC]](#table-of-contents)
