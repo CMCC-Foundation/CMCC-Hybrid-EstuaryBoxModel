@@ -4,15 +4,18 @@
 - [Description](#description)
 - [Data](#data)
 - [Source Code](#source-code)
+- [Requirements](#requirements)
+- [Setup](#setup)
+- [Usage](#usage)
 - [Contact](#contact)
 - [License](#license)
 
-## Description [[to ToC]](#description)
+## Description [[to ToC]](#table-of-contents)
 
 This project concerning the development of an hybrid model for the estimation of the salt-wedge intrusion length (L<sub>x</sub>) and the salinity concentration in the Po River (Po-Goro-Branch). 
 The Hybrid-EBM has been implemented by combining the ML-based model with the fully-physics EBM model. In particular, the first and the second component of this new model has been obtained replacing the two equations of the fully-physics model by ML algorithms like Random Forest and LSBoost.
 
-## Data [[to ToC]](#data)
+## Data [[to ToC]](#table-of-contents)
 The input data for this project is organized as follows:
 
 - `data` folder contains two subfolders:
@@ -52,7 +55,7 @@ The source code for this project is organized as follows:
 - `models` folder contains the trained models, models predictions and model summaries for each component of hybrid-model.
 - `reports` folder contains a brief reports of the analysis with graphics and figures.
 
-## Requirements
+## Requirements [[to ToC]](#table-of-contents)
 - MATLAB Version 9.14 (R2023a) (https://it.mathworks.com/products/matlab.html)
 - Statistics and Machine Learning Toolbox Version 12.5 (R2023a) (https://it.mathworks.com/products/statistics.html)
 - Parallel Computing Toolbox Version 7.8 (R2023a) (https://it.mathworks.com/products/parallel-computing.html)
@@ -76,7 +79,7 @@ To run the experiment follow these steps:
 ````
  \src\models\Component-1-Lx\train_model_component_1_lx.m
 ````
-2. Run the script to generate synthetic observation for the C<sub>k</sub> coefficient:
+2. Run the script to generate synthetic observations for the C<sub>k</sub> coefficient:
 ````
 \src\models\Component-2-Ck\Component-2-1-Generate-Syntethic-Ck-Observations\run_equation_synthetic_ck_observations.m
 ````
