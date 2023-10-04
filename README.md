@@ -58,7 +58,6 @@ The source code for this project is organized as follows:
 - Parallel Computing Toolbox Version 7.8 (R2023a) (https://it.mathworks.com/products/parallel-computing.html)
 
 ## Setup [[to ToC]](#table-of-contents)
-
 To set up the project, follow these steps:
 
 1. Clone the repository: 
@@ -71,6 +70,25 @@ To set up the project, follow these steps:
     ```
 
 ## Usage [[to ToC]](#table-of-contents)
+To run the experiment follow these steps:
+
+1. Run the script to train machine learning models for the Component-1 of Hybrid-EBM (L<sub>x</sub>):
+````
+ \src\models\Component-1-Lx\train_model_component_1_lx.m
+````
+2. Run the script for the Component-2 of Hybrid-EBM (C<sub>k</sub>):
+	2.1
+	````
+	/ Parameters-Estimation / Ck_Parameters_Estimation / run_experiment_training_test_2016_2019.m
+	````
+	2.2
+	````
+	/ Parameters-Estimation / Ck_Parameters_Estimation / run_experiment_training_test_2016_2019.m
+	````
+3. Run the script to compute Component-4 of Hybrid-EBM (S<sub>ul</sub>):
+````
+\src\models\Component-4-Sul\run_experiment_component_4_sul.m
+````
 
 
 ## Contact [[to ToC]](#table-of-contents)
