@@ -7,27 +7,27 @@
 - [Contact](#contact)
 - [License](#license)
 
-## Description [[to ToC]](#table-of-contents)
+## Description [[to ToC]](#description)
 
 This project concerning the development of an hybrid model for the estimation of the salt-wedge intrusion length (L<sub>x</sub>) and the salinity concentration in the Po River (Po-Goro-Branch). 
 The Hybrid-EBM has been implemented by combining the ML-based model with the fully-physics EBM model. In particular, the first and the second component of this new model has been obtained replacing the two equations of the fully-physics model by ML algorithms like Random Forest and LSBoost.
 
-## Data [[to ToC]](#table-of-contents)
+## Data [[to ToC]](#data)
 The input data for this project is organized as follows:
 
 - `data` folder contains two subfolders:
   - `raw` folder contains three subfolders with the raw data:
-	- `Component-1-Lx`: Contains Excel files with the raw data related to the component-1 of hybrid-model.
+	- `Component-1-Lx`: Contains Excel files with the raw dataset related to the Component-1 of Hybrid-EBM.
 	- `Component-2-Ck`: Contains three subfolders:
-		- `Ck-Obs-LSBoost`: Contains Excel files with the raw data related to the component-2 of hybrid-model generated using the Component-1-LSBoost.
-		- `Ck-Obs-RF`: Contains Excel files with the raw data related to the component-2 of hybrid-model generated using the Component-1-RF.
-		- `Input-Features-For-Synthetic-Ck-Obs-Generation`: Contains Excel files with the raw data required to generate the Ck observations.
+		- `Ck-Obs-LSBoost`: Contains Excel files with the raw dataset related to the Component-2 of Hybrid-EBM, generated using the Component-1-LSBoost.
+		- `Ck-Obs-RF`: Contains Excel files with the raw dataset related to the Component-2 of Hybrid-EBM, generated using the Component-1-RF.
+		- `Input-Features-For-Synthetic-Ck-Obs-Generation`: Contains Excel files with the raw dataset required to generate the synthetic Ck observations.
 	- `Component-4-Sul`: Contains Excel files with the raw data related to the component-4 of hybrid-model.
-  - `processed` folder contains two subfolders:
-	- `Component-1-Lx`: Contains Excel files with the processed training and test dataset.
+  - `processed` folder contains two subfolders with the precessed training and test dataset:
+	- `Component-1-Lx`: Contains Excel files with the processed dataset related to the Component-1 of Hybrid-EBM.
 	- `Component-2-Ck`: Contains two subfolders:
-		- `Ck-Obs-LSBoost`: Contains Excel files with the processed training and test dataset generated using the Component-1-LSBoost.
-		- `Ck-Obs-RF`: Contains Excel files with the processed training and test dataset generated using the Component-1-RF.
+		- `Ck-Obs-LSBoost`: Contains Excel files with the processed dataset related to the Component-2 of Hybrid-EBM, generated using the Component-1-LSBoost.
+		- `Ck-Obs-RF`: Contains Excel files with the processed dataset related to the Component-2 of Hybrid-EBM, generated using the Component-1-RF.
   
 
 ## Source Code [[to ToC]](#table-of-contents)
