@@ -22,7 +22,7 @@ The input data for this project is organized as follows:
 		- `Ck-Obs-LSBoost`: Contains Excel files with the raw dataset related to the Component-2 of Hybrid-EBM, generated using the Component-1-LSBoost.
 		- `Ck-Obs-RF`: Contains Excel files with the raw dataset related to the Component-2 of Hybrid-EBM, generated using the Component-1-RF.
 		- `Input-Features-For-Synthetic-Ck-Obs-Generation`: Contains Excel files with the raw dataset required to generate the synthetic Ck observations.
-	- `Component-4-Sul`: Contains Excel files with the raw data related to the component-4 of hybrid-model.
+	- `Component-4-Sul`: Contains Excel files with the raw dataset related to the component-4 of hybrid-model.
   - `processed` folder contains two subfolders with the precessed training and test dataset:
 	- `Component-1-Lx`: Contains Excel files with the processed dataset related to the Component-1 of Hybrid-EBM.
 	- `Component-2-Ck`: Contains two subfolders:
@@ -37,20 +37,20 @@ The source code for this project is organized as follows:
 - `src` folder contains the source code files and subfolders:
   - `models` folder contains four subfolders, each of one contains the main scripts for running the modeling and analysis :
 	 - `Component-1-Lx` folder includes the following files:
-		- `train_model_component_1_lx.m`: The script to trains ML models for the component-1.
+		- `train_model_component_1_lx.m`: The script to trains ML models for Component-1 of Hybrid-EBM.
 	 - `Component-2-Ck` folder includes the following folder and file:
-		- `train_model_component_2_ck.m`: The script to trains ML models for the component-2.
+		- `train_model_component_2_ck.m`: The script to trains ML models for Component-2 of Hybrid-EBM.
 		- `Component-2-1-Generate-Syntethic-Ck-Observations` folder with the files:
 			- `run_equation_synthetic_ck_observations.m`: The script to run creation of new synthetic observations for ck values.
 			- `generate_synthetic_ck.m`: The function (equation) to generate the ck observations.
 	 - `Component-3-Qul` folder includes the following files:
-		- `compute_qul.m`: The function (equation) to compute the component-3 of hybrid-ebm.
+		- `compute_qul.m`: The function (equation) to compute the Component-3 of Hybrid-EBM.
 	 - `Component-4-Sul` folder includes the following files:
-		- `run_experiment_component_4_sul.m`: The script to run the component-4 of hybrid-ebm.
-		- `compute_sul.m`: The function (equation) to compute the component-4 of hybrid-ebm.
-  - `lib` folder: Contains libraries for analysis, machine learning, and utility functions.
-- `models` folder: Contains the trained models, models predictions and model summaries for each component of hybrid-model.
-- `reports` folder: Contains a brief reports of the analysis with graphics and figures.
+		- `run_experiment_component_4_sul.m`: The script to run the Component-4 of Hybrid-EBM.
+		- `compute_sul.m`: The function (equation) to compute the Component-4 of Hybrid-EBM.
+  - `lib` folder contains libraries for analysis, machine learning, and utility functions.
+- `models` folder contains the trained models, models predictions and model summaries for each component of hybrid-model.
+- `reports` folder contains a brief reports of the analysis with graphics and figures.
 
 
 
