@@ -59,11 +59,11 @@ To set up the project, follow these steps:
 
 1. Clone the repository: 
     ```
-    git clone https://github.com/your_username/CMCC-Hybird-EBM-Po_Goro_River-Test-Case.git
+	https://github.com/CMCC-Foundation/CMCC-Hybrid-EBM.git
     ```
 2. Navigate to the project directory:
     ```
-    cd CMCC-Hybird-EBM-Po_Goro_River-Test-Case
+    cd CMCC-Hybrid-EBM
     ```
 
 ## Usage [[to ToC]](#table-of-contents)
