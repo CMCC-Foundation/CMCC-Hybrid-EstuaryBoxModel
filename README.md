@@ -1,4 +1,4 @@
-﻿# CMCC-Hybird-EBM-Po_Goro_River-Test-Case
+﻿# CMCC-Hybrid-EBM
  
 ## Table of Contents:
 - [Description](#description)
