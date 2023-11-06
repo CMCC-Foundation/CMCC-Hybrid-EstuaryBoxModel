@@ -1,4 +1,4 @@
-﻿# CMCC-Hybrid-EBM-v1.0
+﻿# CMCC-Hybrid-EBM
  
 ## Table of Contents:
 - [Description](#description)
