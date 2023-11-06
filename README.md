@@ -1,4 +1,4 @@
-﻿# CMCC-Hybrid-EBM
+﻿# CMCC-Hybrid-EstuaryBoxModel
  
 ## Table of Contents:
 - [Description](#description)
