@@ -63,7 +63,7 @@ To set up the project, follow these steps:
     ```
 2. Navigate to the project directory:
     ```
-    cd CMCC-Hybrid-EBM
+    cd CMCC-Hybrid-EstuaryBoxModel
     ```
 
 ## Usage [[to ToC]](#table-of-contents)
