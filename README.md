@@ -95,4 +95,4 @@ For any questions or inquiries, please contact [Leonardo Saccotelli](mailto:leon
 
 ## License [[to ToC]](#table-of-contents)
 
-This project is licensed under the [GPL 3.0 License](LICENSE).
+This project is licensed under the [Apache License 2.0](LICENSE).
