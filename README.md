@@ -11,8 +11,8 @@
 
 ## Description [[to ToC]](#table-of-contents)
 
-This project concerning the development of an hybrid model for the estimation of the salt-wedge intrusion length (L<sub>x</sub>) and the salinity concentration in the Po River (Po-Goro-Branch). 
-The Hybrid-EBM has been implemented by combining the ML-based model with the fully-physics EBM model. In particular, the first and the second component of this new model has been obtained replacing the two equations of the fully-physics model by ML algorithms like Random Forest and LSBoost. 
+The CMCC-Hybrid-EstuaryBoxModel (CMCC-Hybrid-EBM) is an hybrid model for the estimation of the salt-wedge intrusion length (L<sub>x</sub>) and the salinity concentration in the estuaries. 
+The Hybrid-EBM has been implemented by combining the ML-based model with the fully-physics EBM model. In particular, the first and the second component of this new model has been obtained replacing the two equations of the fully-physics model by ML algorithms like Random Forest and LSBoost. The Po River (Po-Goro-Branch) has been selected as test-case.
 
 ## Project Structure [[to ToC]](#table-of-contents)
 
