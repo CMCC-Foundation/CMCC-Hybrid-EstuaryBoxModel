@@ -1,4 +1,4 @@
-﻿# CMCC-Hybrid-EstuaryBoxModel
+﻿# CMCC-Hybrid-EstuaryBoxModel [![DOI](https://zenodo.org/badge/715104074.svg)](https://zenodo.org/doi/10.5281/zenodo.10075980)
  
 ## Table of Contents:
 - [Description](#description)
@@ -96,6 +96,3 @@ For any questions or inquiries, please contact [Leonardo Saccotelli](mailto:leon
 ## License [[to ToC]](#table-of-contents)
 
 This project is licensed under the [Apache License 2.0](LICENSE).
-
-## Citation [[to ToC]](#table-of-contents)
-Cite the code: [![DOI](https://zenodo.org/badge/715104074.svg)](https://zenodo.org/doi/10.5281/zenodo.10075980)
