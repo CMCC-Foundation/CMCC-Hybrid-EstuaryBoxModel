@@ -91,7 +91,7 @@ To run the experiment follow these steps:
 
 ## Contact [[to ToC]](#table-of-contents)
 
-For any questions or inquiries, please contact [Leonardo Saccotelli](mailto:leonardo.saccotelli@cmcc.it), [Rosalia Maglietta](mailto:rosalia.maglietta@cnr.it) or [Giorgia Verri](mailto:giorgia.verri@cmcc.it).
+For any questions or inquiries, please contact [Rosalia Maglietta](mailto:rosalia.maglietta@cnr.it), [Leonardo Saccotelli](mailto:leonardo.saccotelli@cmcc.it) or [Giorgia Verri](mailto:giorgia.verri@cmcc.it).
 
 ## License [[to ToC]](#table-of-contents)
 
