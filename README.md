@@ -71,7 +71,7 @@ To run the experiment follow these steps:
 
 4. To run the experiments releated to LSTM models run the notebook:
 ````
-\notebook\
+\notebook\1.0-ls-train-model-lstm-salinity-predictions.ipynb
 ````
 
 ## Contact [[to ToC]](#table-of-contents)
