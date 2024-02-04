@@ -49,7 +49,7 @@ To set up the project, follow these steps:
     ```
 2. Navigate to the project directory:
     ```
-    cd CMCC-ML-Estuary-Salinity-Estimation
+    cd CMCC-Hybrid-EstuaryBoxModel
     ```
 
 ## Usage [[to ToC]](#table-of-contents)
