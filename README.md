@@ -45,7 +45,7 @@ To set up the project, follow these steps:
 
 1. Clone the repository: 
     ```
-	git clone -b ML-EBM-PoGoro --single-branch https://github.com/CMCC-Foundation/CMCC-ML-Estuary-Salinity-Estimation.git
+	git clone --single-branch --branch ML-EBM-PoGoro https://github.com/CMCC-Foundation/CMCC-Hybrid-EstuaryBoxModel.git
     ```
 2. Navigate to the project directory:
     ```
